@@ -31,5 +31,6 @@ public class Client {
         testChar.defence = rolledDefence;
         System.out.println("You rolled: " + rolledDefence);
         System.out.println(testChar);
+        scanner.close();
     }
 }

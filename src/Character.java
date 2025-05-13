@@ -18,7 +18,7 @@ class Character {
         this.defence = defence;
     }
     public String toString() {
-        return "| Name: " + name + "| Health: " + health + "| Strength: " + strength + "| Intelligence: " + intelligence + "| Dexterity: " + dexterity + "| Defence: " + defence;
+        return "|Name: " + name + "| Health: " + health + "| Strength: " + strength + "| Intelligence: " + intelligence + "| Dexterity: " + dexterity + "| Defence: " + defence + "|";
     }
 }
 
