@@ -24,13 +24,13 @@ class Character {
 
 class Race {
     String name;
-    String statMod1;
-    String statMod2;
+    StatMod stat1;
+    StatMod stat2;
     
-    public Race (String name, String statMod1, String statMod2) {
+    public Race (String name, StatMod stat1, StatMod stat2) {
         this.name = name;
-        this.statMod1 = statMod1;
-        this.statMod2 = statMod2;
+        this.stat1 = stat1;
+        this.stat2 = stat2;
     }
     public String toString() {
         return name;
@@ -49,11 +49,20 @@ class Class {
 
 class Equipment {
     String name;
-    int statMod;
+    StatMod stat1;
     public Equipment (String name) {
         this.name = name;
     }
     public String toString() {
         return name;
+    }
+}
+
+class StatMod {
+    String statToMod;
+    int valueOfMod;
+    public StatMod (String statToMod, int valueOfMod) {
+        this.statToMod = statToMod;
+        this.valueOfMod = valueOfMod;
     }
 }
