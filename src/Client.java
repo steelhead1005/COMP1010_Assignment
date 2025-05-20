@@ -37,7 +37,7 @@ public class Client {
         String raceCheck = scanner.nextLine();
         // This will need to be abstracted away to anotther file
         switch (raceCheck) {
-            case "Human":
+            case "Human": case "human": case "H": case "h":
                 testRace.name = raceCheck;
                 System.out.println("Pick 2 stats to +1: 'Health', 'Strength', 'Intelligence', 'Dexterity', 'Defence'");
                 String nameStat1 = scanner.nextLine();
@@ -61,7 +61,7 @@ public class Client {
                 }
                 System.out.printf("Your %s increased by 1 and your %s increased by 1.%n", nameStat1, nameStat2);
                 break;
-            case "Orc":
+            case "Orc": case "orc": case "O": case "o":
                 testRace.name = raceCheck;
                 StatMod oStat1 = new StatMod("Strength", 2);
                 StatMod oStat2 = new StatMod("Intelligence", -1);
@@ -69,7 +69,7 @@ public class Client {
                 testChar.intelligence -= 1;
                 System.out.println("Your Strength increased by 2 and your Intelligence decreased by 1.");
                 break;
-            case "Elf":
+            case "Elf": case "elf": case "E": case "e":
                 testRace.name = raceCheck;
                 StatMod eStat1 = new StatMod("Dexterity", 2);
                 StatMod eStat2 = new StatMod("Strength", -1);
@@ -77,7 +77,7 @@ public class Client {
                 testChar.strength -= 1;
                 System.out.println("Your Dexterity increased by 2 and your Strength decreased by 1.");
                 break;
-            case "Dwarf":
+            case "Dwarf": case "dwarf": case "D": case "d":
                 testRace.name = raceCheck;
                 StatMod dStat1 = new StatMod("Defence", 2);
                 StatMod dStat2 = new StatMod("Dexterity", -1);
@@ -85,7 +85,7 @@ public class Client {
                 testChar.dexterity -= 1;
                 System.out.println("Your Defence increased by 2 and your Dexterity decreased by 1.");
                 break;
-            case "Undead":
+            case "Undead": case "undead": case "U": case "u":
                 testRace.name = raceCheck;
                 StatMod uStat1 = new StatMod("Intelligence", 2);
                 StatMod uStat2 = new StatMod("Defence", -1);
@@ -101,54 +101,54 @@ public class Client {
         String classCheck = scanner.nextLine();
         // This will need to be abstracted away to another file
         switch (classCheck) {
-            case "Paladin":
+            case "Paladin": case "paladin": case "P": case "p":
                 testClass.name = classCheck;
                 System.out.println("Choose a Paladin Equipment: 'Holy Hammer', 'Divine Doublet', 'Flame of Faith'");
                 String paladinEquip = scanner.nextLine();
                 switch (paladinEquip) {
-                    case "Holy Hammer":
+                    case "Holy Hammer": case "holy hammer": case "H": case "h":
                         testEquip.name = paladinEquip;
                         break;
-                    case "Divine Doublet":
+                    case "Divine Doublet": case "divine doublet": case "D": case "d":
                         testEquip.name = paladinEquip;
                         break;
-                    case "Flame of Faith":
+                    case "Flame of Faith": case "flame of faith": case "F": case "f":
                         testEquip.name = paladinEquip;
                         break;
                     default:
                         break;
                 }
                 break;
-            case "Rogue":
+            case "Rogue": case "rogue": case "R": case "r":
                 testClass.name = classCheck;
                 System.out.println("Choose a Rogue Equipment: 'Stealthy Shoes', 'Dangerous Dagger', 'Cunning Caltrops'");
                 String rogueEquip = scanner.nextLine();
                 switch (rogueEquip) {
-                    case "Stealthy Shoes":
+                    case "Stealthy Shoes": case "stealthy shoes": case "S": case "s":
                         testEquip.name = rogueEquip;
                         break;
-                    case "Dangerous Dagger":
+                    case "Dangerous Dagger": case "dangerous dagger": case "D": case "d":
                         testEquip.name = rogueEquip;
                         break;
-                    case "Cunning Caltrops":
+                    case "Cunning Caltrops": case "cunning caltrops": case "C": case "c":
                         testEquip.name = rogueEquip;
                         break;
                     default:
                         break;
                 }
                 break;
-            case "Barbarian":
+            case "Barbarian": case "barbarian": case "B": case "b":
                 testClass.name = classCheck;
                 System.out.println("Choose a Barbarian Equipment: 'Rage Remedy', 'Brutal Broadaxe', 'Savage Shield'");
                 String barbEquip = scanner.nextLine();
                 switch (barbEquip) {
-                    case "Rage Remedy":
+                    case "Rage Remedy": case "rage remedy": case "R": case "r":
                         testEquip.name = barbEquip;
                         break;
-                    case "Brutal Broadaxe":
+                    case "Brutal Broadaxe": case "brutal broadaxe": case "B": case "b":
                         testEquip.name = barbEquip;
                         break;
-                    case "Savage Shield":
+                    case "Savage Shield": case "savage shield": case "S": case "s":
                         testEquip.name = barbEquip;
                         break;
                     default:
@@ -156,18 +156,18 @@ public class Client {
                 }
                 break;
                 
-            case "Druid":
+            case "Druid": case "druid": case "D": case "d":
                 testClass.name = classCheck;
                 System.out.println("Choose a Druid Equipment: 'Faerie Flask', 'Brair Bindings', 'Willow Whistle'");
                 String druidEquip = scanner.nextLine();
                 switch (druidEquip) {
-                    case "Faerie Flask":
+                    case "Faerie Flask": case "faerie flask": case "F": case "f":
                         testEquip.name = druidEquip;
                         break;
-                    case "Brair Bindings":
+                    case "Brair Bindings": case "brair bindings": case "B": case "b":
                         testEquip.name = druidEquip;
                         break;
-                    case "Willow Whistle":
+                    case "Willow Whistle": case "willow whistle": case "W": case "w":
                         testEquip.name = druidEquip;
                         break;
                     default:
@@ -175,18 +175,18 @@ public class Client {
                 }
                 break;
     
-            case "Wizard":
+            case "Wizard": case "wizard": case "W": case "w":
                 testClass.name = classCheck;
                 System.out.println("Choose a Wizard Equipment: 'Crystal Cauldron', 'Glowing Gemstone', 'Arcane Amulet'");
                 String wizEquip = scanner.nextLine();
                 switch (wizEquip) {
-                    case "Crystal Cauldron":
+                    case "Crystal Cauldron": case "crystal cauldron": case "C": case "c":
                         testEquip.name = wizEquip;
                         break;
-                    case "Glowing Gemstone":
+                    case "Glowing Gemstone": case "glowing gemstome": case "G": case "g":
                         testEquip.name = wizEquip;
                         break;
-                    case "Arcane Amulet":
+                    case "Arcane Amulet": case "arcane amulet": case "A": case "a":
                         testEquip.name = wizEquip;
                         break;
                     default:
