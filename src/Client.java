@@ -5,6 +5,7 @@ public class Client {
         Character testChar = new Character(null, 0, 0, 0, 0, 0);
         Class testClass = new Class(null);
         Race testRace = new Race(null, null, null);
+        Equipment testEquip = new Equipment(null);
         System.out.println("Whats your characters name: ");
         testChar.name = scanner.nextLine();
         System.out.println("Choose a race: 'Human', 'Orc', 'Elf', 'Dwarf', 'Undead'");
@@ -34,17 +35,17 @@ public class Client {
         switch (classCheck) {
             case "Paladin":
                 testClass.name = classCheck;
-                System.out.println("Choose a Paladin Equipment: 'Holy Hammer', 'Divine ___', 'Flame of Faith'");
+                System.out.println("Choose a Paladin Equipment: 'Holy Hammer', 'Divine Doublet', 'Flame of Faith'");
                 String paladinEquip = scanner.nextLine();
                 switch (paladinEquip) {
                     case "Holy Hammer":
-                        testClass.name = paladinEquip;
+                        testEquip.name = paladinEquip;
                         break;
-                    case "Divine ___":
-                        testClass.name = paladinEquip;
+                    case "Divine Doublet":
+                        testEquip.name = paladinEquip;
                         break;
                     case "Flame of Faith":
-                        testClass.name = paladinEquip;
+                        testEquip.name = paladinEquip;
                         break;
                     default:
                         break;
@@ -52,35 +53,83 @@ public class Client {
                 break;
             case "Rogue":
                 testClass.name = classCheck;
-                System.out.println("Choose a Rogue Equipment: 'Stealthy Shoes', 'Dangerous Dagger', 'Cunning Cudgel'");
+                System.out.println("Choose a Rogue Equipment: 'Stealthy Shoes', 'Dangerous Dagger', 'Cunning Caltrops'");
                 String rogueEquip = scanner.nextLine();
                 switch (rogueEquip) {
                     case "Stealthy Shoes":
-                        testClass.name = rogueEquip;
+                        testEquip.name = rogueEquip;
                         break;
                     case "Dangerous Dagger":
-                        testClass.name = rogueEquip;
+                        testEquip.name = rogueEquip;
                         break;
-                    case "Cunning Cudgel":
-                        testClass.name = rogueEquip;
+                    case "Cunning Caltrops":
+                        testEquip.name = rogueEquip;
                         break;
                     default:
                         break;
+                }
                 break;
             case "Barbarian":
                 testClass.name = classCheck;
-                System.out.println("Choose a Barbarian Equipment: 'Raging __', '");
+                System.out.println("Choose a Barbarian Equipment: 'Rage Remedy', 'Brutal Broadaxe', 'Savage Shield'");
+                String barbEquip = scanner.nextLine();
+                switch (barbEquip) {
+                    case "Rage Remedy":
+                        testEquip.name = barbEquip;
+                        break;
+                    case "Brutal Broadaxe":
+                        testEquip.name = barbEquip;
+                        break;
+                    case "Savage Shield":
+                        testEquip.name = barbEquip;
+                        break;
+                    default:
+                        break;
+                }
                 break;
+                
             case "Druid":
                 testClass.name = classCheck;
+                System.out.println("Choose a Druid Equipment: 'Faerie Flask', 'Brair Bindings', 'Willow Whistle'");
+                String druidEquip = scanner.nextLine();
+                switch (druidEquip) {
+                    case "Faerie Flask":
+                        testEquip.name = druidEquip;
+                        break;
+                    case "Brair Bindings":
+                        testEquip.name = druidEquip;
+                        break;
+                    case "Willow Whistle":
+                        testEquip.name = druidEquip;
+                        break;
+                    default:
+                        break;
+                }
                 break;
+    
             case "Wizard":
                 testClass.name = classCheck;
+                System.out.println("Choose a Wizard Equipment: 'Crystal Cauldron', 'Glowing Gemstone', 'Arcane Amulet'");
+                String wizEquip = scanner.nextLine();
+                switch (wizEquip) {
+                    case "Rage Remedy":
+                        testEquip.name = wizEquip;
+                        break;
+                    case "Brutal Broadaxe":
+                        testEquip.name = wizEquip;
+                        break;
+                    case "Savage Shield":
+                        testEquip.name = wizEquip;
+                        break;
+                    default:
+                        break;
+                }
                 break;
             default:
-                break;
+               break;
         }
         testChar.Class = testClass;
+        testChar.Equipment = testEquip;
         System.out.print("Press ENTER to roll for health: ");
         scanner.nextLine();
         int rolledHealth = (int)(Math.random() * 101);
