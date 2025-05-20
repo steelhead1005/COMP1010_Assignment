@@ -35,7 +35,7 @@ public class Client {
         System.out.println("You rolled: " + rolledDefence);
         System.out.println("Choose a race: 'Human', 'Orc', 'Elf', 'Dwarf', 'Undead'");
         String raceCheck = scanner.nextLine();
-        // This will need to be abstracted away to anotther file
+        // This will need to be abstracted away to another file
         switch (raceCheck) {
             case "Human": case "human": case "H": case "h":
                 testRace.name = raceCheck;
@@ -102,54 +102,54 @@ public class Client {
         // This will need to be abstracted away to another file
         switch (classCheck) {
             case "Paladin": case "paladin": case "P": case "p":
-                testClass.name = classCheck;
+                testClass.name = "Paladin";
                 System.out.println("Choose a Paladin Equipment: 'Holy Hammer', 'Divine Doublet', 'Flame of Faith'");
                 String paladinEquip = scanner.nextLine();
                 switch (paladinEquip) {
                     case "Holy Hammer": case "holy hammer": case "H": case "h":
-                        testEquip.name = paladinEquip;
+                        testEquip.name = "Holy Hammer";
                         break;
                     case "Divine Doublet": case "divine doublet": case "D": case "d":
-                        testEquip.name = paladinEquip;
+                        testEquip.name = "Divine Doublet";
                         break;
                     case "Flame of Faith": case "flame of faith": case "F": case "f":
-                        testEquip.name = paladinEquip;
+                        testEquip.name = "Flame of Faith";
                         break;
                     default:
                         break;
                 }
                 break;
             case "Rogue": case "rogue": case "R": case "r":
-                testClass.name = classCheck;
+                testClass.name = "Rogue";
                 System.out.println("Choose a Rogue Equipment: 'Stealthy Shoes', 'Dangerous Dagger', 'Cunning Caltrops'");
                 String rogueEquip = scanner.nextLine();
                 switch (rogueEquip) {
                     case "Stealthy Shoes": case "stealthy shoes": case "S": case "s":
-                        testEquip.name = rogueEquip;
+                        testEquip.name = "Stealthy Shoes";
                         break;
                     case "Dangerous Dagger": case "dangerous dagger": case "D": case "d":
-                        testEquip.name = rogueEquip;
+                        testEquip.name = "Dangerous Dagger";
                         break;
                     case "Cunning Caltrops": case "cunning caltrops": case "C": case "c":
-                        testEquip.name = rogueEquip;
+                        testEquip.name = "Cunning Caltrops";
                         break;
                     default:
                         break;
                 }
                 break;
             case "Barbarian": case "barbarian": case "B": case "b":
-                testClass.name = classCheck;
+                testClass.name = "Barbarian";
                 System.out.println("Choose a Barbarian Equipment: 'Rage Remedy', 'Brutal Broadaxe', 'Savage Shield'");
                 String barbEquip = scanner.nextLine();
                 switch (barbEquip) {
                     case "Rage Remedy": case "rage remedy": case "R": case "r":
-                        testEquip.name = barbEquip;
+                        testEquip.name = "Rage Remedy";
                         break;
                     case "Brutal Broadaxe": case "brutal broadaxe": case "B": case "b":
-                        testEquip.name = barbEquip;
+                        testEquip.name = "Brutal Broadaxe";
                         break;
                     case "Savage Shield": case "savage shield": case "S": case "s":
-                        testEquip.name = barbEquip;
+                        testEquip.name = "Savage Shield";
                         break;
                     default:
                         break;
@@ -157,18 +157,18 @@ public class Client {
                 break;
                 
             case "Druid": case "druid": case "D": case "d":
-                testClass.name = classCheck;
+                testClass.name = "Druid";
                 System.out.println("Choose a Druid Equipment: 'Faerie Flask', 'Brair Bindings', 'Willow Whistle'");
                 String druidEquip = scanner.nextLine();
                 switch (druidEquip) {
                     case "Faerie Flask": case "faerie flask": case "F": case "f":
-                        testEquip.name = druidEquip;
+                        testEquip.name = "Faerie Flask";
                         break;
                     case "Brair Bindings": case "brair bindings": case "B": case "b":
-                        testEquip.name = druidEquip;
+                        testEquip.name = "Brair Bindings";
                         break;
                     case "Willow Whistle": case "willow whistle": case "W": case "w":
-                        testEquip.name = druidEquip;
+                        testEquip.name = "Willow Whistle";
                         break;
                     default:
                         break;
@@ -181,13 +181,13 @@ public class Client {
                 String wizEquip = scanner.nextLine();
                 switch (wizEquip) {
                     case "Crystal Cauldron": case "crystal cauldron": case "C": case "c":
-                        testEquip.name = wizEquip;
+                        testEquip.name = "Crystal Cauldron";
                         break;
                     case "Glowing Gemstone": case "glowing gemstome": case "G": case "g":
-                        testEquip.name = wizEquip;
+                        testEquip.name = "Glowing Gemstone";
                         break;
                     case "Arcane Amulet": case "arcane amulet": case "A": case "a":
-                        testEquip.name = wizEquip;
+                        testEquip.name = "Arcane Amulet";
                         break;
                     default:
                         break;
