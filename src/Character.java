@@ -20,6 +20,9 @@ class Character {
     public String toString() {
         return "|Name: " + name + "| Race: " + Race + "| Class: " + Class + "| Equipment: " + Equipment + "| Health: " + health + "| Strength: " + strength + "| Intelligence: " + intelligence + "| Dexterity: " + dexterity + "| Defence: " + defence + "|";
     }
+    public String toName() {
+        return name + " ";
+    }
 }
 
 class Race {
