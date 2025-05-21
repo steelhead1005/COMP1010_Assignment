@@ -1,3 +1,5 @@
+package COMP1010.main;
+
 class Character {
     String name;
     int health;

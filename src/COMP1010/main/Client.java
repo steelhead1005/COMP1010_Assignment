@@ -1,3 +1,5 @@
+package COMP1010.main;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Client {
@@ -229,3 +231,4 @@ public class Client {
         scanner.close();
     }
 }
+
