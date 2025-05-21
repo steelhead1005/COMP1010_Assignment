@@ -3,6 +3,7 @@ package COMP1010.main;
 class Character {
     String name;
     int health;
+    int currenthp;
     int strength;
     int intelligence;
     int dexterity;
@@ -14,6 +15,7 @@ class Character {
     public Character(String name, int health, int strength, int intelligence, int dexterity, int defence) {
         this.name = name;
         this.health = health;
+        this.currenthp = health;
         this.strength = strength;
         this.intelligence = intelligence;
         this.dexterity = dexterity;
@@ -24,7 +26,7 @@ class Character {
                 + "| Intelligence: " + intelligence + "| Dexterity: " + dexterity + "| Defence: " + defence + "|";
     }
     public String toName() {
-        return name + " ";
+        return name + ", ";
     }
 }
 
