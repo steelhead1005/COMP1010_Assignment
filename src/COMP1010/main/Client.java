@@ -6,221 +6,236 @@ public class Client {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Character> listofChar = new ArrayList<>();
-        System.out.println("You are standing in an open field west of a white house.");
-        System.out.print("Press ENTER to start the game: ");
-        scanner.nextLine();
-        System.out.println("Create 3 characters to fight with to begin the game: ");
+        GameLogic.headingCreator("You are standing in an open field west of a white house.");
+        GameLogic.pauseGame("Press ENTER to start the game: ");
+        GameLogic.headingCreator("Create 3 characters to fight with to begin the game: ");
         while (true) {
             Character testChar = new Character(null, 0, 0, 0, 0, 0);
             Class testClass = new Class(null);
             Race testRace = new Race(null, null, null);
             Equipment testEquip = new Equipment(null);
-            System.out.println("Whats your characters name: ");
-            testChar.name = scanner.nextLine();
-            System.out.print("Press ENTER to roll for health: ");
-            scanner.nextLine();
+            testChar.name = GameLogic.readInputString("Whats your characters name: ");
+            GameLogic.pauseGame("Press ENTER to roll for health: ");
             int rolledHealth = (int)(Math.random() * 50 + 1);
             testChar.health = rolledHealth;
             System.out.println("You rolled: " + rolledHealth);
-            System.out.print("Press ENTER to roll for strength: ");
-            scanner.nextLine();
+            GameLogic.pauseGame("Press ENTER to roll for strength: ");
             int rolledStrength = (int)(Math.random() * 10);
             testChar.strength = rolledStrength;
             System.out.println("You rolled: " + rolledStrength);
-            System.out.print("Press ENTER to roll for intelligence: ");
-            scanner.nextLine();
+            GameLogic.pauseGame("Press ENTER to roll for intelligence: ");
             int rolledInt = (int)(Math.random() * 10);
             testChar.intelligence = rolledInt;
             System.out.println("You rolled: " + rolledInt);
-            System.out.print("Press ENTER to roll for dexterity: ");
-            scanner.nextLine();
+            GameLogic.pauseGame("Press ENTER to roll for dexterity: ");
             int rolledDex = (int)(Math.random() * 10);
             testChar.dexterity = rolledDex;
             System.out.println("You rolled: " + rolledDex);
-            System.out.print("Press ENTER to roll for defence: ");
-            scanner.nextLine();
+            GameLogic.pauseGame("Press ENTER to roll for defence: ");
             int rolledDefence = (int)(Math.random() * 10);
             testChar.defence = rolledDefence;
             System.out.println("You rolled: " + rolledDefence);
-            System.out.println("Choose a race: 'Human', 'Orc', 'Elf', 'Dwarf', 'Undead'");
-            String raceCheck = scanner.nextLine();
+            int raceChoice = GameLogic.readInputInt("Choose a race: (1)'Human', (2)'Orc', (3)'Elf', (4)'Dwarf', (5)'Undead'", 5);
             // This will need to be abstracted away to another file
-            switch (raceCheck) {
-                case "Human": case "human": case "H": case "h":
+            switch (raceChoice) {
+                case 1:
                     testRace.name = "Human";
-                    System.out.println("Pick 2 stats to +1: 'Health', 'Strength', 'Intelligence', 'Dexterity', 'Defence'");
-                    String nameStat1 = scanner.nextLine();
-                    String nameStat2 = scanner.nextLine();
-                    StatMod hStat1 = new StatMod(nameStat1, 1);
-                    StatMod hStat2 = new StatMod(nameStat2, 1);
-                    if (hStat1.statToMod == "Health" || hStat2.statToMod == "Health") {
-                        testChar.health += 1;
+                    int stat1 = GameLogic.readInputInt("Pick the first stat to '+1': (1)'Health', (2)'Strength', (3)'Intelligence', (4)'Dexterity', (5)'Defence'", 5);
+                    int stat2 = GameLogic.readInputInt("Pick the second stat to '+1': (1)'Health', (2)'Strength', (3)'Intelligence', (4)'Dexterity', (5)'Defence'", 5);
+                    StatMod hStat1 = new StatMod(stat1, 1);
+                    StatMod hStat2 = new StatMod(stat2, 1);
+                    String nameStat1;
+                    String nameStat2;
+                    switch (stat1) {
+                        case 1:
+                            testChar.health += 1;
+                            nameStat1 = "Health";
+                            break;
+                        case 2:
+                            testChar.strength += 1;
+                            nameStat1 = "Strength";
+                            break;
+                        case 3:
+                            testChar.intelligence += 1;
+                            nameStat1 = "Intelligence";
+                            break;
+                        case 4:
+                            testChar.dexterity += 1;
+                            nameStat1 = "Dexterity";
+                            break;
+                        case 5:
+                            testChar.defence += 1;
+                            nameStat1 = "Defence";
+                            break;
+                        default:
+                            nameStat1 = null;
+                            break;
                     }
-                    if (hStat1.statToMod == "Strength" || hStat2.statToMod == "Strength") {
-                        testChar.strength += 1;
+                    switch (stat2) {
+                        case 1:
+                            testChar.health += 1;
+                            nameStat2 = "Health";
+                            break;
+                        case 2:
+                            testChar.strength += 1;
+                            nameStat2 = "Strength";
+                            break;
+                        case 3:
+                            testChar.intelligence += 1;
+                            nameStat2 = "Intelligence";
+                            break;
+                        case 4:
+                            testChar.dexterity += 1;
+                            nameStat2 = "Dexterity";
+                            break;
+                        case 5:
+                            testChar.defence += 1;
+                            nameStat2 = "Defence";
+                            break;
+                        default:
+                            nameStat2 = null;
+                            break;
                     }
-                    if (hStat1.statToMod == "Intelligence" || hStat2.statToMod == "Intelligence") {
-                        testChar.intelligence += 1;
-                    }
-                    if (hStat1.statToMod == "Dexterity" || hStat2.statToMod == "Dexterity") {
-                        testChar.dexterity += 1;
-                    }
-                    if (hStat1.statToMod == "Defence" || hStat2.statToMod == "Defence") {
-                        testChar.defence += 1;
+                    if (stat1 == stat2){
+                        System.out.printf("Your %s increased by 2.%n", nameStat1);
                     }
                     else {
-                        System.out.println("Invalid Input, Please try again.");
-                        continue;
-                    } 
-                    System.out.printf("Your %s increased by 1 and your %s increased by 1.%n", nameStat1, nameStat2);
+                        System.out.printf("Your %s increased by 1 and your %s increased by 1.%n", nameStat1, nameStat2);
+                    }
                     break;
-                case "Orc": case "orc": case "O": case "o":
+                case 2:
                     testRace.name = "Orc";
-                    StatMod oStat1 = new StatMod("Strength", 2);
-                    StatMod oStat2 = new StatMod("Intelligence", -1);
+                    StatMod oStat1 = new StatMod(2, 2);
+                    StatMod oStat2 = new StatMod(3, -1);
                     testChar.strength += 2;
                     testChar.intelligence -= 1;
                     System.out.println("Your Strength increased by 2 and your Intelligence decreased by 1.");
                     break;
-                case "Elf": case "elf": case "E": case "e":
+                case 3:
                     testRace.name = "Elf";
-                    StatMod eStat1 = new StatMod("Dexterity", 2);
-                    StatMod eStat2 = new StatMod("Strength", -1);
+                    StatMod eStat1 = new StatMod(4, 2);
+                    StatMod eStat2 = new StatMod(2, -1);
                     testChar.dexterity += 2;
                     testChar.strength -= 1;
                     System.out.println("Your Dexterity increased by 2 and your Strength decreased by 1.");
                     break;
-                case "Dwarf": case "dwarf": case "D": case "d":
+                case 4:
                     testRace.name = "Dwarf";
-                    StatMod dStat1 = new StatMod("Defence", 2);
-                    StatMod dStat2 = new StatMod("Dexterity", -1);
+                    StatMod dStat1 = new StatMod(5, 2);
+                    StatMod dStat2 = new StatMod(4, -1);
                     testChar.defence += 2;
                     testChar.dexterity -= 1;
                     System.out.println("Your Defence increased by 2 and your Dexterity decreased by 1.");
                     break;
-                case "Undead": case "undead": case "U": case "u":
+                case 5:
                     testRace.name = "Undead";
-                    StatMod uStat1 = new StatMod("Intelligence", 2);
-                    StatMod uStat2 = new StatMod("Defence", -1);
+                    StatMod uStat1 = new StatMod(3, 2);
+                    StatMod uStat2 = new StatMod(5, -1);
                     testChar.intelligence += 2;
                     testChar.defence -= 1;
                     System.out.println("Your Intelligence increased by 2 and your Defence decreased by 1.");
                     break;
                 default:
-                    System.out.println("Invalid Input, Please try again.");
-                    continue;
+                    break;
             }
             testChar.Race = testRace;
-            System.out.println("Choose a class: 'Paladin', 'Rogue', 'Druid', 'Wizard', 'Barbarian'");
-            String classCheck = scanner.nextLine();
+            int classChoice = GameLogic.readInputInt("Choose a class: (1)'Paladin', (2)'Rogue', (3)'Druid', (4)'Wizard', (5)'Barbarian'", 5);
             // This will need to be abstracted away to another file
-            switch (classCheck) {
-                case "Paladin": case "paladin": case "P": case "p":
+            switch (classChoice) {
+                case 1:
                     testClass.name = "Paladin";
-                    System.out.println("Choose a Paladin Equipment: 'Holy Hammer', 'Divine Doublet', 'Flame of Faith'");
-                    String paladinEquip = scanner.nextLine();
+                    int paladinEquip = GameLogic.readInputInt("Choose a Paladin Equipment: (1)'Holy Hammer', (2)'Divine Doublet', (3)'Flame of Faith'", 3);
                     switch (paladinEquip) {
-                        case "Holy Hammer": case "holy hammer": case "H": case "h":
+                        case 1:
                             testEquip.name = "Holy Hammer";
                             break;
-                        case "Divine Doublet": case "divine doublet": case "D": case "d":
+                        case 2:
                             testEquip.name = "Divine Doublet";
                             break;
-                        case "Flame of Faith": case "flame of faith": case "F": case "f":
+                        case 3:
                             testEquip.name = "Flame of Faith";
                             break;
                         default:
-                        System.out.println("Invalid Input, Please try again.");
-                            continue;
+                            break;
                     }
                     break;
-                case "Rogue": case "rogue": case "R": case "r":
+                case 2:
                     testClass.name = "Rogue";
-                    System.out.println("Choose a Rogue Equipment: 'Stealthy Shoes', 'Dangerous Dagger', 'Cunning Caltrops'");
-                    String rogueEquip = scanner.nextLine();
+                    int rogueEquip = GameLogic.readInputInt("Choose a Rogue Equipment: (1)'Stealthy Shoes', (2)'Dangerous Dagger', (3)'Cunning Caltrops'", 3);
                     switch (rogueEquip) {
-                        case "Stealthy Shoes": case "stealthy shoes": case "S": case "s":
+                        case 1:
                             testEquip.name = "Stealthy Shoes";
                             break;
-                        case "Dangerous Dagger": case "dangerous dagger": case "D": case "d":
+                        case 2:
                             testEquip.name = "Dangerous Dagger";
                             break;
-                        case "Cunning Caltrops": case "cunning caltrops": case "C": case "c":
+                        case 3:
                             testEquip.name = "Cunning Caltrops";
                             break;
                         default:
-                            System.out.println("Invalid Input, Please try again.");
-                            continue;
+                            break;
                     }
-                    break;
-                case "Barbarian": case "barbarian": case "B": case "b":
-                    testClass.name = "Barbarian";
-                    System.out.println("Choose a Barbarian Equipment: 'Rage Remedy', 'Brutal Broadaxe', 'Savage Shield'");
-                    String barbEquip = scanner.nextLine();
-                    switch (barbEquip) {
-                        case "Rage Remedy": case "rage remedy": case "R": case "r":
-                            testEquip.name = "Rage Remedy";
-                            break;
-                        case "Brutal Broadaxe": case "brutal broadaxe": case "B": case "b":
-                            testEquip.name = "Brutal Broadaxe";
-                            break;
-                        case "Savage Shield": case "savage shield": case "S": case "s":
-                            testEquip.name = "Savage Shield";
-                            break;
-                        default:
-                            System.out.println("Invalid Input, Please try again.");
-                            continue;
-                    }
-                    break;
-                    
-                case "Druid": case "druid": case "D": case "d":
+                    break;  
+                case 3:
                     testClass.name = "Druid";
-                    System.out.println("Choose a Druid Equipment: 'Faerie Flask', 'Brair Bindings', 'Willow Whistle'");
-                    String druidEquip = scanner.nextLine();
+                    int druidEquip = GameLogic.readInputInt("Choose a Druid Equipment: (1)'Faerie Flask', (2)'Brair Bindings', (3)'Willow Whistle'", 3);
                     switch (druidEquip) {
-                        case "Faerie Flask": case "faerie flask": case "F": case "f":
+                        case 1:
                             testEquip.name = "Faerie Flask";
                             break;
-                        case "Brair Bindings": case "brair bindings": case "B": case "b":
+                        case 2:
                             testEquip.name = "Brair Bindings";
                             break;
-                        case "Willow Whistle": case "willow whistle": case "W": case "w":
+                        case 3:
                             testEquip.name = "Willow Whistle";
                             break;
                         default:
-                            System.out.println("Invalid Input, Please try again.");
-                            continue;
+                            break;
                     }
                     break;
         
-                case "Wizard": case "wizard": case "W": case "w":
+                case 4:
                     testClass.name = "Wizard";
-                    System.out.println("Choose a Wizard Equipment: 'Crystal Cauldron', 'Glowing Gemstone', 'Arcane Amulet'");
-                    String wizEquip = scanner.nextLine();
+                    int wizEquip = GameLogic.readInputInt("Choose a Wizard Equipment: (1)'Crystal Cauldron', (2)'Glowing Gemstone', (3)'Arcane Amulet'", 3);
                     switch (wizEquip) {
-                        case "Crystal Cauldron": case "crystal cauldron": case "C": case "c":
+                        case 1:
                             testEquip.name = "Crystal Cauldron";
                             break;
-                        case "Glowing Gemstone": case "glowing gemstome": case "G": case "g":
+                        case 2:
                             testEquip.name = "Glowing Gemstone";
                             break;
-                        case "Arcane Amulet": case "arcane amulet": case "A": case "a":
+                        case 3:
                             testEquip.name = "Arcane Amulet";
                             break;
                         default:
-                            System.out.println("Invalid Input, Please try again.");
-                            continue;
+                            break;
+                    }
+                    break;
+                case 5:
+                    testClass.name = "Barbarian";
+                    int barbEquip = GameLogic.readInputInt("Choose a Barbarian Equipment: (1)'Rage Remedy', (2)'Brutal Broadaxe', (3)'Savage Shield'", 3);
+                    switch (barbEquip) {
+                        case 1:
+                            testEquip.name = "Rage Remedy";
+                            break;
+                        case 2:
+                            testEquip.name = "Brutal Broadaxe";
+                            break;
+                        case 3:
+                            testEquip.name = "Savage Shield";
+                            break;
+                        default:
+                            break;
                     }
                     break;
                 default:
-                continue;
+                    break;
             }
             testChar.Class = testClass;
             testChar.Equipment = testEquip;
             System.out.println(testChar);
             listofChar.add(testChar);
-            System.out.print("Character Created! Press enter to create the next character or start the game: ");
-            scanner.nextLine();
+            GameLogic.pauseGame("Character Created! Press enter to create the next character or start the game: ");
             if (listofChar.size() == 3) {
                 System.out.println("Your team is fully assembled!");
                 break;

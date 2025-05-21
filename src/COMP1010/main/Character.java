@@ -20,7 +20,8 @@ class Character {
         this.defence = defence;
     }
     public String toString() {
-        return "|Name: " + name + "| Race: " + Race + "| Class: " + Class + "| Equipment: " + Equipment + "| Health: " + health + "| Strength: " + strength + "| Intelligence: " + intelligence + "| Dexterity: " + dexterity + "| Defence: " + defence + "|";
+        return "|Name: " + name + "| Race: " + Race + "| Class: " + Class + "| Equipment: " + Equipment + "| Health: " + health + "| Strength: " + strength
+                + "| Intelligence: " + intelligence + "| Dexterity: " + dexterity + "| Defence: " + defence + "|";
     }
     public String toName() {
         return name + " ";
@@ -64,9 +65,9 @@ class Equipment {
 }
 
 class StatMod {
-    String statToMod;
+    int statToMod;
     int valueOfMod;
-    public StatMod (String statToMod, int valueOfMod) {
+    public StatMod (int statToMod, int valueOfMod) {
         this.statToMod = statToMod;
         this.valueOfMod = valueOfMod;
     }
