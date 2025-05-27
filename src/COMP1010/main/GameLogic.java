@@ -69,8 +69,14 @@ public class GameLogic {
         enemy2.Equipment = new Equipment("weapon2", new StatMod(2, 3));
         enemyTeam.add(enemy2);
 
+        Character enemy3 = new Character("enemy3", 100, 12, 3, 7, 6);
+        enemy3.Race = new Race("race3", new StatMod(1, 5), new StatMod(2, 2));
+        enemy3.Class = new Class("class3");
+        enemy3.Equipment = new Equipment("weapon3", new StatMod(2, 3));
+        enemyTeam.add(enemy3);
+
         // start battle
-        headingCreator("⚔️  BATTLE STARTS! ⚔️");
+        headingCreator("BATTLE STARTS!");
         System.out.println("Your team will now face:");
         for (Character enemy : enemyTeam) {
             System.out.println("- " + enemy.name + " the " + enemy.Race + " " + enemy.Class);
@@ -79,13 +85,21 @@ public class GameLogic {
 
         // 1v1 battles
         for (int i = 0; i < listofChar.size(); i++) {
+            System.out.println(i); //test
+            System.out.println(listofChar.size()); //test
             if (i < enemyTeam.size()) {
                 Character ally = listofChar.get(i);
                 Character enemy = enemyTeam.get(i);
 
                 headingCreator(ally.name + " vs " + enemy.name);
+                System.out.println(ally.currenthp); // test
+                System.out.println(enemy.currenthp); // test
                 while (ally.currenthp > 0 && enemy.currenthp > 0) {
+                    System.out.println(ally.currenthp); // test
+                    System.out.println(enemy.currenthp); // test
                     combatRound(ally, enemy);
+                    System.out.println(ally.currenthp); // test
+                    System.out.println(enemy.currenthp); // test
                     if (enemy.currenthp > 0) {
                         combatRound(enemy, ally);
                     }
@@ -154,26 +168,11 @@ public class GameLogic {
         System.out.println("Race: " + testChar.Race);
         System.out.println("Class: " + testChar.Class);
         System.out.println("Equipment: " + testChar.Equipment);
-       /*  if (testEquip != null && testEquip.stat1 != null) {
-            System.out.println("You equipped: " + testEquip.name + " (+" + testEquip.stat1.valueOfMod + " to " + getStatName(testEquip.stat1.statToMod) + ")");
-            } else {
-                System.out.println("You equipped: " + (testEquip != null ? testEquip.name : "Nothing") + " (No stat bonus assigned)");
-            } 
-          */  
-    
+
         listofChar.add(testChar);
 
     }
-   /*  public static String getStatName(int statCode) {
-    switch (statCode) {
-        case 1: return "Health";
-        case 2: return "Strength";
-        case 3: return "Intelligence";
-        case 4: return "Dexterity";
-        case 5: return "Defence";
-        default: return "Unknown";
-    }
-    */
+
     public static String getCharName() {
         String name;
         boolean nameConfirm = false;
@@ -463,7 +462,7 @@ public class GameLogic {
             System.out.println(defender.name + " has " + defender.currenthp + " HP remaining.");
         }
     }
-    
+
 }
 
 

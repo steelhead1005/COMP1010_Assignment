@@ -11,8 +11,6 @@ class Character {
     Object Race;
     Object Class;
     Object Equipment;
-    //public Equipment equipment;
-    //public StatMod equipStatMod;
 
     public Character(String name, int health, int strength, int intelligence, int dexterity, int defence) {
         this.name = name;
@@ -53,23 +51,6 @@ class Character {
                 break;
         }
     }
-
-   /*  public int getModifiedStrength() {
-        int modifiedStrength = this.strength;
-        if (equipStatMod != null && equipStatMod.statToMod == 2) {
-            modifiedStrength += equipStatMod.valueOfMod;
-        }
-        return modifiedStrength;
-    }
-
-    public int getModifiedDefence() {
-        int modifiedDefence = this.defence;
-        if (this.equipStatMod != null && this.equipStatMod.statToMod == 5) {
-        modifiedDefence += this.equipStatMod.valueOfMod;
-        }
-        return modifiedDefence;
-    }
-    */
 }
 
 class Race {
@@ -134,7 +115,7 @@ class StatMod {
         }
     }
     public String toString() {
-        return "(+" + valueOfMod + " " + getStatName() + ")";
+        return " (+" + valueOfMod + " " + getStatName() + ")";
     }
 }
 class Returnpair {
