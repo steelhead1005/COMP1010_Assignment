@@ -60,15 +60,13 @@ public class GameLogic {
         Character enemy1 = new Character("enemy1", 80, 10, 5, 6, 4);
         enemy1.Race = new Race("race1", new StatMod(2, 2), new StatMod(4, 1));
         enemy1.Class = new Class("class1");
-        enemy1.equipment = new Equipment("weapon1");
-        enemy1.equipment.stat1 = new StatMod(2, 2);
+        enemy1.Equipment = new Equipment("weapon1", new StatMod(2, 2));
         enemyTeam.add(enemy1);
 
         Character enemy2 = new Character("enemy2", 100, 12, 3, 7, 6);
         enemy2.Race = new Race("race2", new StatMod(1, 5), new StatMod(2, 2));
         enemy2.Class = new Class("class2");
-        enemy2.equipment = new Equipment("weapon2");
-        enemy2.equipment.stat1 = new StatMod(2, 3);
+        enemy2.Equipment = new Equipment("weapon2", new StatMod(2, 3));
         enemyTeam.add(enemy2);
 
         // start battle
@@ -107,7 +105,7 @@ public class GameLogic {
         Character testChar = new Character(null, 0, 0, 0, 0, 0);
         Class testClass = new Class(null);
         Race testRace = new Race(null, null, null);
-        Equipment testEquip = new Equipment(null);
+        Equipment testEquip = new Equipment(null,null);
         String numPostfix;
         if (listofChar.size() == 0) {
             numPostfix = "st";
@@ -136,18 +134,16 @@ public class GameLogic {
         raceStatMod(testChar, testRace.stat1, testRace.stat2);
         testChar.Race = testRace;
 
-        Returnpair classRp  = getClassName();;
-        testClass.name = classRp.name;
+        Returnpair classRpair  = getClassName();
+        testClass.name = classRpair.name;
         testChar.Class = testClass;
 
-        Returnpair equipRp = getEquip(classRp.num);
-        testEquip = new Equipment(equipRp.name);
-        testEquip.stat1 = equipRp.stat1;
-        testChar.equipment = testEquip;
-        testChar.equipStatMod = equipRp.stat1;
-        if (testEquip.stat1 != null) {
-            testChar.statMod(testEquip.stat1);
-        }
+        Returnpair equipRpair = getEquip(classRpair.num);
+        testEquip.name = equipRpair.name;
+        testEquip.stat1 = equipRpair.stat1;
+        equipStatMod(testChar, testEquip.stat1);
+        testChar.Equipment = testEquip;
+  
         headingCreator("Your character is ready!");
         System.out.println("Character Name: " + testChar.name);
         System.out.println("Health: " + testChar.health);
@@ -157,17 +153,18 @@ public class GameLogic {
         System.out.println("Defence: " + testChar.defence);
         System.out.println("Race: " + testChar.Race);
         System.out.println("Class: " + testChar.Class);
-        if (testEquip != null && testEquip.stat1 != null) {
+        System.out.println("Equipment: " + testChar.Equipment);
+       /*  if (testEquip != null && testEquip.stat1 != null) {
             System.out.println("You equipped: " + testEquip.name + " (+" + testEquip.stat1.valueOfMod + " to " + getStatName(testEquip.stat1.statToMod) + ")");
             } else {
                 System.out.println("You equipped: " + (testEquip != null ? testEquip.name : "Nothing") + " (No stat bonus assigned)");
             } 
-            
+          */  
     
         listofChar.add(testChar);
 
     }
-    public static String getStatName(int statCode) {
+   /*  public static String getStatName(int statCode) {
     switch (statCode) {
         case 1: return "Health";
         case 2: return "Strength";
@@ -176,7 +173,7 @@ public class GameLogic {
         case 5: return "Defence";
         default: return "Unknown";
     }
-}
+    */
     public static String getCharName() {
         String name;
         boolean nameConfirm = false;
@@ -339,7 +336,7 @@ public class GameLogic {
                 int paladinEquip = readInputInt("Choose a Paladin Equipment: (1)'Holy Hammer', (2)'Divine Doublet', (3)'Flame of Faith'", 3);
                 switch (paladinEquip) {
                     case 1:
-                        equipPair.name = "Holy Hammer"; //need to statmod for what the equipment do
+                        equipPair.name = "Holy Hammer";
                         equipPair.stat1 = new StatMod(5, 4);
                         return equipPair;
                     case 2:
@@ -356,7 +353,7 @@ public class GameLogic {
                 int rogueEquip = readInputInt("Choose a Rogue Equipment: (1)'Stealthy Shoes', (2)'Dangerous Dagger', (3)'Cunning Caltrops'", 3);
                 switch (rogueEquip) {
                     case 1:
-                        equipPair.name = "Stealthy Shoes"; //need to statmod for what the equipment do
+                        equipPair.name = "Stealthy Shoes";
                         equipPair.stat1 = new StatMod(4, 4);
                         return equipPair;
                     case 2:
@@ -373,7 +370,7 @@ public class GameLogic {
                 int druidEquip = readInputInt("Choose a Druid Equipment: (1)'Faerie Flask', (2)'Brair Bindings', (3)'Willow Whistle'", 3);
                 switch (druidEquip) {
                     case 1:
-                        equipPair.name = "Faerie Flask"; //need to statmod for what the equipment do
+                        equipPair.name = "Faerie Flask";
                         equipPair.stat1 = new StatMod(1, 10);
                         return equipPair;
                     case 2:
@@ -390,7 +387,7 @@ public class GameLogic {
                 int wizardEquip = readInputInt("Choose a Wizard Equipment: (1)'Crystal Cauldron', (2)'Glowing Gemstone', (3)'Arcane Amulet'", 3);
                 switch (wizardEquip) {
                     case 1:
-                        equipPair.name = "Crystal Cauldron"; //need to statmod for what the equipment do
+                        equipPair.name = "Crystal Cauldron";
                         equipPair.stat1 = new StatMod(3, 4);
                         return equipPair;
                     case 2:
@@ -407,7 +404,7 @@ public class GameLogic {
                 int barbarianEquip = readInputInt("Choose a Barbarian Equipment: (1)'Rage Remedy', (2)'Brutal Broadaxe', (3)'Savage Shield'", 3);
                 switch (barbarianEquip) {
                     case 1:
-                        equipPair.name = "Rage Remedy"; //need to statmod for what the equipment do
+                        equipPair.name = "Rage Remedy";
                         equipPair.stat1 = new StatMod(1, 10);
                         return equipPair;
                     case 2:
@@ -425,22 +422,47 @@ public class GameLogic {
         }
         return equipPair;
     }
-        public static void combatRound(Character attacker, Character defender) {
-            int attackPower = attacker.getModifiedStrength();
-            int defensePower = defender.getModifiedDefence();
-            int dice = (int)(Math.random() * 6);
-            int damage = Math.max(0, attackPower - defensePower + dice);
-
-            defender.currenthp -= damage;
-            System.out.println(attacker.name + " attacks " + defender.name + " for " + damage + " damage!");
-
-            if (defender.currenthp <= 0) {
-                System.out.println(defender.name + " has been defeated!");
-            } else {
-                System.out.println(defender.name + " has " + defender.currenthp + " HP remaining.");
-            }
+    public static void equipStatMod(Character player, StatMod stat1) {
+        switch (stat1.statToMod) {
+            case 1:
+                player.health += stat1.valueOfMod;
+                System.out.println("Your Health was changed increased " + stat1.valueOfMod);
+                break;
+            case 2:
+                player.strength += stat1.valueOfMod;
+                System.out.println("Your Strength was changed increased " + stat1.valueOfMod);
+                break;
+            case 3:
+                player.intelligence += stat1.valueOfMod;
+                System.out.println("Your Intelligence was changed increased " + stat1.valueOfMod);
+                break;
+            case 4:
+                player.dexterity += stat1.valueOfMod;
+                System.out.println("Your Dexterity was changed increased " + stat1.valueOfMod);
+                break;
+            case 5:
+                player.defence += stat1.valueOfMod;
+                System.out.println("Your Defence was changed increased " + stat1.valueOfMod);
+                break;
+            default:
+                break; //Unreachable
         }
+    }
+    public static void combatRound(Character attacker, Character defender) {
+        int attackPower = attacker.strength;
+        int defensePower = defender.defence;
+        int dice = (int)(Math.random() * 6);
+        int damage = Math.max(0, attackPower - defensePower + dice);
 
+        defender.currenthp -= damage;
+        System.out.println(attacker.name + " attacks " + defender.name + " for " + damage + " damage!");
+
+        if (defender.currenthp <= 0) {
+            System.out.println(defender.name + " has been defeated!");
+        } else {
+            System.out.println(defender.name + " has " + defender.currenthp + " HP remaining.");
+        }
+    }
     
 }
 

@@ -10,8 +10,9 @@ class Character {
     int defence;
     Object Race;
     Object Class;
-    public Equipment equipment;
-    public StatMod equipStatMod;
+    Object Equipment;
+    //public Equipment equipment;
+    //public StatMod equipStatMod;
 
     public Character(String name, int health, int strength, int intelligence, int dexterity, int defence) {
         this.name = name;
@@ -22,8 +23,8 @@ class Character {
         this.dexterity = dexterity;
         this.defence = defence;
     }
-    public String toString() {
-        return "|Name: " + name + "| Race: " + Race + "| Class: " + Class + "| Equipment: " + equipment + "| Health: " + health + "| Strength: " + strength
+    public String toString() { //may be redundant
+        return "|Name: " + name + "| Race: " + Race + "| Class: " + Class + "| Equipment: " + Equipment + "| Health: " + health + "| Strength: " + strength
                 + "| Intelligence: " + intelligence + "| Dexterity: " + dexterity + "| Defence: " + defence + "|";
     }
     public String toName() {
@@ -53,7 +54,7 @@ class Character {
         }
     }
 
-    public int getModifiedStrength() {
+   /*  public int getModifiedStrength() {
         int modifiedStrength = this.strength;
         if (equipStatMod != null && equipStatMod.statToMod == 2) {
             modifiedStrength += equipStatMod.valueOfMod;
@@ -66,8 +67,9 @@ class Character {
         if (this.equipStatMod != null && this.equipStatMod.statToMod == 5) {
         modifiedDefence += this.equipStatMod.valueOfMod;
         }
-    return modifiedDefence;
-}
+        return modifiedDefence;
+    }
+    */
 }
 
 class Race {
@@ -98,20 +100,41 @@ class Class {
 class Equipment{
     public String name;
     public StatMod stat1;
-    public Equipment (String name) {
+    public Equipment (String name, StatMod stat1) {
         this.name = name;
+        this.stat1 = stat1;
     }
     public String toString() {
-        return name;
+        return name + stat1;
     }
 }
 
 class StatMod {
     int statToMod;
     int valueOfMod;
+    String statName;
     public StatMod (int statToMod, int valueOfMod) {
         this.statToMod = statToMod;
         this.valueOfMod = valueOfMod;
+    }
+    public String getStatName() {
+        switch (this.statToMod) {
+            case 1:
+                return "Health";
+            case 2:
+                return "Strength";
+            case 3:
+                return "Intelligence";
+            case 4:
+                return "Dexterity";
+            case 5:
+                return "Defence";
+            default:
+                return null; //Unreachable
+        }
+    }
+    public String toString() {
+        return "(+" + valueOfMod + " " + getStatName() + ")";
     }
 }
 class Returnpair {
