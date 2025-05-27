@@ -63,13 +63,13 @@ public class GameLogic {
         enemy1.Equipment = new Equipment("weapon1", new StatMod(2, 2));
         enemyTeam.add(enemy1);
 
-        Character enemy2 = new Character("enemy2", 100, 12, 3, 7, 6);
+        Character enemy2 = new Character("enemy2", 60, 12, 3, 7, 6);
         enemy2.Race = new Race("race2", new StatMod(1, 5), new StatMod(2, 2));
         enemy2.Class = new Class("class2");
         enemy2.Equipment = new Equipment("weapon2", new StatMod(2, 3));
         enemyTeam.add(enemy2);
 
-        Character enemy3 = new Character("enemy3", 100, 12, 3, 7, 6);
+        Character enemy3 = new Character("enemy3", 50, 12, 3, 7, 6);
         enemy3.Race = new Race("race3", new StatMod(1, 5), new StatMod(2, 2));
         enemy3.Class = new Class("class3");
         enemy3.Equipment = new Equipment("weapon3", new StatMod(2, 3));
@@ -85,21 +85,13 @@ public class GameLogic {
 
         // 1v1 battles
         for (int i = 0; i < listofChar.size(); i++) {
-            System.out.println(i); //test
-            System.out.println(listofChar.size()); //test
             if (i < enemyTeam.size()) {
                 Character ally = listofChar.get(i);
                 Character enemy = enemyTeam.get(i);
 
                 headingCreator(ally.name + " vs " + enemy.name);
-                System.out.println(ally.currenthp); // test
-                System.out.println(enemy.currenthp); // test
                 while (ally.currenthp > 0 && enemy.currenthp > 0) {
-                    System.out.println(ally.currenthp); // test
-                    System.out.println(enemy.currenthp); // test
                     combatRound(ally, enemy);
-                    System.out.println(ally.currenthp); // test
-                    System.out.println(enemy.currenthp); // test
                     if (enemy.currenthp > 0) {
                         combatRound(enemy, ally);
                     }
@@ -136,6 +128,7 @@ public class GameLogic {
 
         int rolledStats[] = rollStats();
         testChar.health = rolledStats[0];
+        testChar.currenthp = testChar.health;
         testChar.strength = rolledStats[1];
         testChar.intelligence = rolledStats[2];
         testChar.dexterity = rolledStats[3];
