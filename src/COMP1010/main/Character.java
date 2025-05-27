@@ -10,7 +10,7 @@ class Character {
     int defence;
     Object Race;
     Object Class;
-    Object Equipment;
+    public Equipment equipment;
     public StatMod equipStatMod;
 
     public Character(String name, int health, int strength, int intelligence, int dexterity, int defence) {
@@ -23,7 +23,7 @@ class Character {
         this.defence = defence;
     }
     public String toString() {
-        return "|Name: " + name + "| Race: " + Race + "| Class: " + Class + "| Equipment: " + Equipment + "| Health: " + health + "| Strength: " + strength
+        return "|Name: " + name + "| Race: " + Race + "| Class: " + Class + "| Equipment: " + equipment + "| Health: " + health + "| Strength: " + strength
                 + "| Intelligence: " + intelligence + "| Dexterity: " + dexterity + "| Defence: " + defence + "|";
     }
     public String toName() {
@@ -52,6 +52,22 @@ class Character {
                 break;
         }
     }
+
+    public int getModifiedStrength() {
+        int modifiedStrength = this.strength;
+        if (equipStatMod != null && equipStatMod.statToMod == 2) {
+            modifiedStrength += equipStatMod.valueOfMod;
+        }
+        return modifiedStrength;
+    }
+
+    public int getModifiedDefence() {
+        int modifiedDefence = this.defence;
+        if (this.equipStatMod != null && this.equipStatMod.statToMod == 5) {
+        modifiedDefence += this.equipStatMod.valueOfMod;
+        }
+    return modifiedDefence;
+}
 }
 
 class Race {
@@ -79,9 +95,9 @@ class Class {
     }
 }
 
-class Equipment {
-    String name;
-    StatMod stat1;
+class Equipment{
+    public String name;
+    public StatMod stat1;
     public Equipment (String name) {
         this.name = name;
     }

@@ -54,6 +54,54 @@ public class GameLogic {
         while (listofChar.size() < 3) {
            characterCreation();
         }
+        // Create enemy team 
+        ArrayList<Character> enemyTeam = new ArrayList<>();
+
+        Character enemy1 = new Character("enemy1", 80, 10, 5, 6, 4);
+        enemy1.Race = new Race("race1", new StatMod(2, 2), new StatMod(4, 1));
+        enemy1.Class = new Class("class1");
+        enemy1.equipment = new Equipment("weapon1");
+        enemy1.equipment.stat1 = new StatMod(2, 2);
+        enemyTeam.add(enemy1);
+
+        Character enemy2 = new Character("enemy2", 100, 12, 3, 7, 6);
+        enemy2.Race = new Race("race2", new StatMod(1, 5), new StatMod(2, 2));
+        enemy2.Class = new Class("class2");
+        enemy2.equipment = new Equipment("weapon2");
+        enemy2.equipment.stat1 = new StatMod(2, 3);
+        enemyTeam.add(enemy2);
+
+        // start battle
+        headingCreator("⚔️  BATTLE STARTS! ⚔️");
+        System.out.println("Your team will now face:");
+        for (Character enemy : enemyTeam) {
+            System.out.println("- " + enemy.name + " the " + enemy.Race + " " + enemy.Class);
+            }
+        pauseGame("Press ENTER to begin the fight...");
+
+        // 1v1 battles
+        for (int i = 0; i < listofChar.size(); i++) {
+            if (i < enemyTeam.size()) {
+                Character ally = listofChar.get(i);
+                Character enemy = enemyTeam.get(i);
+
+                headingCreator(ally.name + " vs " + enemy.name);
+                while (ally.currenthp > 0 && enemy.currenthp > 0) {
+                    combatRound(ally, enemy);
+                    if (enemy.currenthp > 0) {
+                        combatRound(enemy, ally);
+                    }
+                    pauseGame("Press ENTER to continue...");
+            }
+
+            if (ally.currenthp <= 0) {
+                System.out.println(ally.name + " has fallen!");
+            } else {
+                System.out.println(ally.name + " is victorious!");
+            }
+        }
+    }
+
     }
     public static void characterCreation() {
         Character testChar = new Character(null, 0, 0, 0, 0, 0);
@@ -95,7 +143,7 @@ public class GameLogic {
         Returnpair equipRp = getEquip(classRp.num);
         testEquip = new Equipment(equipRp.name);
         testEquip.stat1 = equipRp.stat1;
-        testChar.Equipment = testEquip;
+        testChar.equipment = testEquip;
         testChar.equipStatMod = equipRp.stat1;
         if (testEquip.stat1 != null) {
             testChar.statMod(testEquip.stat1);
@@ -377,6 +425,22 @@ public class GameLogic {
         }
         return equipPair;
     }
+        public static void combatRound(Character attacker, Character defender) {
+            int attackPower = attacker.getModifiedStrength();
+            int defensePower = defender.getModifiedDefence();
+            int dice = (int)(Math.random() * 6);
+            int damage = Math.max(0, attackPower - defensePower + dice);
+
+            defender.currenthp -= damage;
+            System.out.println(attacker.name + " attacks " + defender.name + " for " + damage + " damage!");
+
+            if (defender.currenthp <= 0) {
+                System.out.println(defender.name + " has been defeated!");
+            } else {
+                System.out.println(defender.name + " has " + defender.currenthp + " HP remaining.");
+            }
+        }
+
     
 }
 
