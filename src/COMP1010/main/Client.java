@@ -7,7 +7,6 @@ public class Client {
         GameLogic.gameStart();
         System.out.println("Your team is: " + GameLogic.listofChar.get(0).toName() + GameLogic.listofChar.get(1).toName() + GameLogic.listofChar.get(2).toName());
         scanner.close();
-        System.out.println("Updated Github");
     }
 }
 

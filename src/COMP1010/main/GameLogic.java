@@ -93,13 +93,42 @@ public class GameLogic {
         testChar.Class = testClass;
 
         Returnpair equipRp = getEquip(classRp.num);
-        testEquip.name = equipRp.name;
+        testEquip = new Equipment(equipRp.name);
+        testEquip.stat1 = equipRp.stat1;
         testChar.Equipment = testEquip;
-
+        testChar.equipStatMod = equipRp.stat1;
+        if (testEquip.stat1 != null) {
+            testChar.statMod(testEquip.stat1);
+        }
+        headingCreator("Your character is ready!");
+        System.out.println("Character Name: " + testChar.name);
+        System.out.println("Health: " + testChar.health);
+        System.out.println("Strength: " + testChar.strength);
+        System.out.println("Intelligence: " + testChar.intelligence);
+        System.out.println("Dexterity: " + testChar.dexterity);
+        System.out.println("Defence: " + testChar.defence);
+        System.out.println("Race: " + testChar.Race);
+        System.out.println("Class: " + testChar.Class);
+        if (testEquip != null && testEquip.stat1 != null) {
+            System.out.println("You equipped: " + testEquip.name + " (+" + testEquip.stat1.valueOfMod + " to " + getStatName(testEquip.stat1.statToMod) + ")");
+            } else {
+                System.out.println("You equipped: " + (testEquip != null ? testEquip.name : "Nothing") + " (No stat bonus assigned)");
+            } 
+            
+    
         listofChar.add(testChar);
 
-
     }
+    public static String getStatName(int statCode) {
+    switch (statCode) {
+        case 1: return "Health";
+        case 2: return "Strength";
+        case 3: return "Intelligence";
+        case 4: return "Dexterity";
+        case 5: return "Defence";
+        default: return "Unknown";
+    }
+}
     public static String getCharName() {
         String name;
         boolean nameConfirm = false;
@@ -263,12 +292,15 @@ public class GameLogic {
                 switch (paladinEquip) {
                     case 1:
                         equipPair.name = "Holy Hammer"; //need to statmod for what the equipment do
+                        equipPair.stat1 = new StatMod(5, 4);
                         return equipPair;
                     case 2:
                         equipPair.name = "Divine Doublet";
+                        equipPair.stat1 = new StatMod(2, 3);
                         return equipPair;
                     case 3:
                         equipPair.name = "Flame of Faith";
+                        equipPair.stat1 = new StatMod(3, 3);
                         return equipPair;
                     }
             break;
@@ -277,12 +309,15 @@ public class GameLogic {
                 switch (rogueEquip) {
                     case 1:
                         equipPair.name = "Stealthy Shoes"; //need to statmod for what the equipment do
+                        equipPair.stat1 = new StatMod(4, 4);
                         return equipPair;
                     case 2:
                         equipPair.name = "Dangerous Dagger";
+                        equipPair.stat1 = new StatMod(2, 3);
                         return equipPair;
                     case 3:
                         equipPair.name = "Cunning Caltrops";
+                        equipPair.stat1 = new StatMod(5, 2);
                         return equipPair;
                     }
             break;
@@ -291,12 +326,15 @@ public class GameLogic {
                 switch (druidEquip) {
                     case 1:
                         equipPair.name = "Faerie Flask"; //need to statmod for what the equipment do
+                        equipPair.stat1 = new StatMod(1, 10);
                         return equipPair;
                     case 2:
                         equipPair.name = "Brair Bindings";
+                        equipPair.stat1 = new StatMod(5, 3);
                         return equipPair;
                     case 3:
                         equipPair.name = "Willow Whistle";
+                        equipPair.stat1 = new StatMod(4, 2);
                         return equipPair;
                     }
             break;
@@ -305,12 +343,15 @@ public class GameLogic {
                 switch (wizardEquip) {
                     case 1:
                         equipPair.name = "Crystal Cauldron"; //need to statmod for what the equipment do
+                        equipPair.stat1 = new StatMod(3, 4);
                         return equipPair;
                     case 2:
                         equipPair.name = "Glowing Gemstone";
+                        equipPair.stat1 = new StatMod(4, 2);
                         return equipPair;
                     case 3:
                         equipPair.name = "Arcane Amulet";
+                        equipPair.stat1 = new StatMod(1, 5);
                         return equipPair;
                     }
             break;
@@ -319,12 +360,15 @@ public class GameLogic {
                 switch (barbarianEquip) {
                     case 1:
                         equipPair.name = "Rage Remedy"; //need to statmod for what the equipment do
+                        equipPair.stat1 = new StatMod(1, 10);
                         return equipPair;
                     case 2:
                         equipPair.name = "Glowing Gemstone";
+                        equipPair.stat1 = new StatMod(2, 5);
                         return equipPair;
                     case 3:
                         equipPair.name = "Savage Shield";
+                        equipPair.stat1 = new StatMod(5, 4);
                         return equipPair;
                     }
             break;    

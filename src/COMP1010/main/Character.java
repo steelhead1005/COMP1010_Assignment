@@ -11,6 +11,7 @@ class Character {
     Object Race;
     Object Class;
     Object Equipment;
+    public StatMod equipStatMod;
 
     public Character(String name, int health, int strength, int intelligence, int dexterity, int defence) {
         this.name = name;
@@ -27,6 +28,29 @@ class Character {
     }
     public String toName() {
         return name + ", ";
+    }
+
+    public void statMod(StatMod mod) {
+        switch (mod.statToMod) {
+            case 1:
+                this.health += mod.valueOfMod;
+                break;
+            case 2:
+                this.strength += mod.valueOfMod;
+                break;
+            case 3:
+                this.intelligence += mod.valueOfMod;
+                break;
+            case 4:
+                this.dexterity += mod.valueOfMod;
+                break;
+            case 5:
+                this.defence += mod.valueOfMod;
+                break;
+            default:
+                // Unknown stat, do nothing
+                break;
+        }
     }
 }
 
