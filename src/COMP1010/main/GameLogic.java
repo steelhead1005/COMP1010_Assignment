@@ -51,61 +51,91 @@ public class GameLogic {
         headingCreator("You are standing in an open field west of a white house.");
         pauseGame("Press ENTER to start the game: ");
         headingCreator("Create 3 characters to fight with to begin the game: ");
-        while (listofChar.size() < 3) {
-           characterCreation();
-        }
-        // Create enemy team 
-        ArrayList<Character> enemyTeam = new ArrayList<>();
+        //while (listofChar.size() < 3) {
+          // characterCreation();
+        //}
+        Character Char1 = new Character("Char1", 10, 10, 5, 6, 4);
+        Char1.Race = new Race("race1", new StatMod(2, 2), new StatMod(4, 1));
+        Char1.Class = new Class("class1");
+        Char1.Equipment = new Equipment("weapon1", new StatMod(2, 2));
+        Char1.identifier = 0;
+        listofChar.add(Char1);
 
-        Character enemy1 = new Character("enemy1", 80, 10, 5, 6, 4);
+        Character Char2 = new Character("Char2", 10, 10, 5, 6, 4);
+        Char2.Race = new Race("race1", new StatMod(2, 2), new StatMod(4, 1));
+        Char2.Class = new Class("class1");
+        Char2.Equipment = new Equipment("weapon1", new StatMod(2, 2));
+        Char2.identifier = 0;
+        listofChar.add(Char2);
+
+        Character Char3 = new Character("Char3", 10, 10, 5, 6, 4);
+        Char3.Race = new Race("race1", new StatMod(2, 2), new StatMod(4, 1));
+        Char3.Class = new Class("class1");
+        Char3.Equipment = new Equipment("weapon1", new StatMod(2, 2));
+        Char3.identifier = 0;
+        listofChar.add(Char3);
+
+        // Create enemy team 
+        ArrayList<Character> enemyTeam = new ArrayList<>(); // move up
+
+        Character enemy1 = new Character("Goblin", 10, 10, 5, 6, 4);
         enemy1.Race = new Race("race1", new StatMod(2, 2), new StatMod(4, 1));
         enemy1.Class = new Class("class1");
         enemy1.Equipment = new Equipment("weapon1", new StatMod(2, 2));
+        enemy1.identifier = 1;
         enemyTeam.add(enemy1);
 
-        Character enemy2 = new Character("enemy2", 60, 12, 3, 7, 6);
+        Character enemy2 = new Character("Kobold", 10, 12, 3, 7, 6);
         enemy2.Race = new Race("race2", new StatMod(1, 5), new StatMod(2, 2));
         enemy2.Class = new Class("class2");
         enemy2.Equipment = new Equipment("weapon2", new StatMod(2, 3));
+        enemy2.identifier = 1;
         enemyTeam.add(enemy2);
 
-        Character enemy3 = new Character("enemy3", 50, 12, 3, 7, 6);
+        Character enemy3 = new Character("Witch", 10, 12, 3, 5, 6);
         enemy3.Race = new Race("race3", new StatMod(1, 5), new StatMod(2, 2));
         enemy3.Class = new Class("class3");
         enemy3.Equipment = new Equipment("weapon3", new StatMod(2, 3));
+        enemy3.identifier = 1;
         enemyTeam.add(enemy3);
+
+        ArrayList<Character> turnOrder = new ArrayList<>();
+        turnOrder.addAll(listofChar);
+        turnOrder.addAll(enemyTeam);
+        Collections.sort(turnOrder, (a, b) -> Integer.compare(a.dexterity, b.dexterity));
+        System.out.println(turnOrder);
+        
 
         // start battle
         headingCreator("BATTLE STARTS!");
-        System.out.println("Your team will now face:");
+        System.out.println("Your team will now face: ");
         for (Character enemy : enemyTeam) {
-            System.out.println("- " + enemy.name + " the " + enemy.Race + " " + enemy.Class);
+            System.out.println("- " + enemy.name);
             }
-        pauseGame("Press ENTER to begin the fight...");
-
-        // 1v1 battles
-        for (int i = 0; i < listofChar.size(); i++) {
-            if (i < enemyTeam.size()) {
-                Character ally = listofChar.get(i);
-                Character enemy = enemyTeam.get(i);
-
-                headingCreator(ally.name + " vs " + enemy.name);
-                while (ally.currenthp > 0 && enemy.currenthp > 0) {
-                    combatRound(ally, enemy);
-                    if (enemy.currenthp > 0) {
-                        combatRound(enemy, ally);
-                    }
-                    pauseGame("Press ENTER to continue...");
+        pauseGame("Press ENTER to begin the fight: ");
+        
+        Node n1 = battleOrderCreator(turnOrder);
+        
+        int roundCount = 1;
+        int roundResult;
+        System.out.println("Round 1!");
+        while (true) {
+            roundResult = battleLoop(n1, listofChar, enemyTeam);
+            if (roundResult < 0) {
+                break;
             }
-
-            if (ally.currenthp <= 0) {
-                System.out.println(ally.name + " has fallen!");
-            } else {
-                System.out.println(ally.name + " is victorious!");
+            else {
+                roundCount += roundResult;
+                pauseGame("Round " + roundCount + "!\nPress ENTER to continue: ");
             }
         }
-    }
 
+        if (roundResult == -1) {
+            System.out.println("You Win!");
+        }
+        else {
+            System.out.println("You Lose!");
+        }
     }
     public static void characterCreation() {
         Character testChar = new Character(null, 0, 0, 0, 0, 0);
@@ -150,6 +180,7 @@ public class GameLogic {
         testEquip.stat1 = equipRpair.stat1;
         equipStatMod(testChar, testEquip.stat1);
         testChar.Equipment = testEquip;
+        testChar.identifier = 0;
   
         headingCreator("Your character is ready!");
         System.out.println("Character Name: " + testChar.name);
@@ -164,6 +195,79 @@ public class GameLogic {
 
         listofChar.add(testChar);
 
+    }
+
+    public static Node battleOrderCreator(ArrayList<Character> turnOrder) {
+        Node n6 = new Node(turnOrder.get(5), null);
+        Node n5 = new Node(turnOrder.get(4), n6);
+        Node n4 = new Node(turnOrder.get(3), n5);
+        Node n3 = new Node(turnOrder.get(2), n4);
+        Node n2 = new Node(turnOrder.get(1), n3);
+        Node n1 = new Node(turnOrder.get(0), n2);
+        return n1;
+    }
+
+    public static int battleLoop(Node start, ArrayList<Character> listofChar, ArrayList<Character> enemyTeam) {
+        int playerTeamHealth = listofChar.get(0).currenthp + listofChar.get(1).currenthp + listofChar.get(2).currenthp;
+        int enemyTeamHealth = enemyTeam.get(0).currenthp + enemyTeam.get(1).currenthp + enemyTeam.get(2).currenthp;
+
+        if (start == null) {
+            return 1;
+        }
+        if (enemyTeamHealth == 0){
+            return -1;
+        }
+        else if (playerTeamHealth == 0) {
+            return -2;
+        }
+
+        if (start.data.currenthp <= 0) {
+            start.data.identifier = 3;
+        }
+        if (start.data.identifier == 0) {
+            System.out.println(start.data.name + "'s turn: " );
+            System.out.println(start.data.name + " is on " + start.data.currenthp + " health: ");
+            int battleChoice = readInputInt("Would you like to attack (1), defend (2) or heal (3): ", 3);
+            switch (battleChoice) {
+                case 1:
+                    int attacktarget = readInputInt("Who would you like to attack " + enemyTeam.get(0).name + " (1), " + enemyTeam.get(1).name + " (2) or " 
+                                                    + enemyTeam.get(2).name + " (3): ", 3);
+                    Character.attack(start.data, enemyTeam.get(attacktarget - 1));
+                    battleLoop(start.next, listofChar, enemyTeam);
+                    break;
+                case 2:
+                    Character.defend(start.data);
+                    battleLoop(start.next, listofChar, enemyTeam);
+                    break;
+                case 3:
+                    Character.heal(start.data);
+                    battleLoop(start.next, listofChar, enemyTeam);
+                    break;
+            }
+        }
+        else if (start.data.identifier == 1) {
+            int battleChoice = (int)(Math.random() * 3 + 1);
+            System.out.println(start.data.name + "'s turn: " );
+            System.out.println(start.data.name + " is on " + start.data.currenthp + " health: ");
+            switch (battleChoice) {
+                case 1:
+                    Character.attack(start.data, listofChar.get((int)(Math.random() * 3)));
+                    battleLoop(start.next, listofChar, enemyTeam);
+                    break;
+                case 2:
+                    Character.defend(start.data);
+                    battleLoop(start.next, listofChar, enemyTeam);
+                    break;
+                case 3:
+                    Character.heal(start.data);
+                    battleLoop(start.next, listofChar, enemyTeam);
+                    break;
+            }
+        }
+        else {
+            battleLoop(start.next, listofChar, enemyTeam);
+        }
+        return 1;
     }
 
     public static String getCharName() {

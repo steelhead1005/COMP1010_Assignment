@@ -8,6 +8,7 @@ class Character {
     int intelligence;
     int dexterity;
     int defence;
+    int identifier;
     Object Race;
     Object Class;
     Object Equipment;
@@ -21,9 +22,8 @@ class Character {
         this.dexterity = dexterity;
         this.defence = defence;
     }
-    public String toString() { //may be redundant
-        return "|Name: " + name + "| Race: " + Race + "| Class: " + Class + "| Equipment: " + Equipment + "| Health: " + health + "| Strength: " + strength
-                + "| Intelligence: " + intelligence + "| Dexterity: " + dexterity + "| Defence: " + defence + "|";
+    public String toString() {
+        return name + " " + dexterity;
     }
     public String toName() {
         return name + ", ";
@@ -50,6 +50,44 @@ class Character {
                 // Unknown stat, do nothing
                 break;
         }
+    }
+    public static void attack(Character attacker, Character defender) {
+        int attackPower = attacker.strength;
+        int defencePower = defender.defence;
+        int dice = (int)(Math.random() * 6);
+        int damage = Math.max(0, attackPower - defencePower + dice);
+
+        if (defender.currenthp - damage <= 0) {
+            defender.currenthp = 0;
+            System.out.println(attacker.name + " attacks " + defender.name + " for " + damage + " damage!");
+            GameLogic.pauseGame(defender.name + " is now DEAD!\nPress ENTER to continue: ");
+        }
+        else {
+            defender.currenthp -= damage;
+            System.out.println(attacker.name + " attacks " + defender.name + " for " + damage + " damage!");
+            GameLogic.pauseGame(defender.name + " is now on " + defender.currenthp + " health: \nPress ENTER to continue: ");
+        }
+    }
+    public static int defend(Character defender) {
+        int dice = (int)(Math.random() * 6);
+        defender.defence += dice;
+
+        System.out.println(defender.name + " raised their defence by " + dice + " for 1 round!");
+        GameLogic.pauseGame("Press ENTER to continue: ");
+        return dice;
+    }
+    public static void heal(Character patient) {
+        int dice = (int)(Math.random() * 6) + patient.intelligence;
+        if (patient.currenthp + dice > patient.health) {
+            dice = patient.health - patient.currenthp;
+            patient.currenthp = patient.health;
+        }
+        else {
+            patient.currenthp += dice;
+        }
+
+        System.out.println(patient.name + " healed for " + dice + "!");
+        GameLogic.pauseGame("Press ENTER to continue: ");
     }
 }
 
@@ -130,5 +168,14 @@ class Returnpair {
     public Returnpair(String name, StatMod stat1) {
         this.name = name;
         this.stat1 = stat1;
+    }
+}
+class Node {
+    public Character data;
+    public Node next;
+
+    public Node(Character data, Node next) {
+        this.data = data;
+        this.next = next;
     }
 }
