@@ -78,6 +78,7 @@ public class GameLogic {
         // Create enemy team 
         ArrayList<Character> enemyTeam = new ArrayList<>(); // move up
 
+        // need to randomise to some degree
         Character enemy1 = new Character("Goblin", 10, 10, 5, 6, 4);
         enemy1.Race = new Race("race1", new StatMod(2, 2), new StatMod(4, 1));
         enemy1.Class = new Class("class1");
@@ -103,7 +104,8 @@ public class GameLogic {
         turnOrder.addAll(listofChar);
         turnOrder.addAll(enemyTeam);
         Collections.sort(turnOrder, (a, b) -> Integer.compare(a.dexterity, b.dexterity));
-        System.out.println(turnOrder);
+
+        System.out.println(turnOrder); //need to removed at somepoint
         
 
         // start battle
@@ -123,6 +125,9 @@ public class GameLogic {
             roundResult = battleLoop(n1, listofChar, enemyTeam);
             if (roundResult < 0) {
                 break;
+            }
+            else if (roundResult == 0) {
+                continue;
             }
             else {
                 roundCount += roundResult;
@@ -267,7 +272,7 @@ public class GameLogic {
         else {
             battleLoop(start.next, listofChar, enemyTeam);
         }
-        return 1;
+        return 0;
     }
 
     public static String getCharName() {

@@ -1,5 +1,4 @@
 fix healing on full health
 fix being able to attack a dead target
 fix infinitely stacking defence
-fix adding 1 more round after result
 tune stats
