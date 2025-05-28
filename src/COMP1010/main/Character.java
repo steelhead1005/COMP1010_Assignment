@@ -9,6 +9,7 @@ class Character {
     int dexterity;
     int defence;
     int identifier;
+    int defenceBuff;
     Object Race;
     Object Class;
     Object Equipment;
@@ -68,13 +69,13 @@ class Character {
             GameLogic.pauseGame(defender.name + " is now on " + defender.currenthp + " health: \nPress ENTER to continue: ");
         }
     }
-    public static int defend(Character defender) {
+    public static void defend(Character defender) {
         int dice = (int)(Math.random() * 6);
         defender.defence += dice;
 
         System.out.println(defender.name + " raised their defence by " + dice + " for 1 round!");
         GameLogic.pauseGame("Press ENTER to continue: ");
-        return dice;
+        defender.defenceBuff = dice;
     }
     public static void heal(Character patient) {
         int dice = (int)(Math.random() * 6) + patient.intelligence;

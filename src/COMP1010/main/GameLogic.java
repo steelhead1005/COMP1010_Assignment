@@ -5,7 +5,8 @@ import java.util.Collections;
 import java.util.Scanner;
 public class GameLogic {
     static Scanner scanner = new Scanner(System.in);
-    static ArrayList<Character> listofChar = new ArrayList<>();
+    static ArrayList<Character> playerTeam = new ArrayList<>();
+    static ArrayList<Character> enemyTeam = new ArrayList<>();
     
     public static int readInputInt(String prompt, int numOptions) {
         int input;
@@ -51,32 +52,9 @@ public class GameLogic {
         headingCreator("You are standing in an open field west of a white house.");
         pauseGame("Press ENTER to start the game: ");
         headingCreator("Create 3 characters to fight with to begin the game: ");
-        //while (listofChar.size() < 3) {
-          // characterCreation();
-        //}
-        Character Char1 = new Character("Char1", 10, 10, 5, 6, 4);
-        Char1.Race = new Race("race1", new StatMod(2, 2), new StatMod(4, 1));
-        Char1.Class = new Class("class1");
-        Char1.Equipment = new Equipment("weapon1", new StatMod(2, 2));
-        Char1.identifier = 0;
-        listofChar.add(Char1);
-
-        Character Char2 = new Character("Char2", 10, 10, 5, 6, 4);
-        Char2.Race = new Race("race1", new StatMod(2, 2), new StatMod(4, 1));
-        Char2.Class = new Class("class1");
-        Char2.Equipment = new Equipment("weapon1", new StatMod(2, 2));
-        Char2.identifier = 0;
-        listofChar.add(Char2);
-
-        Character Char3 = new Character("Char3", 10, 10, 5, 6, 4);
-        Char3.Race = new Race("race1", new StatMod(2, 2), new StatMod(4, 1));
-        Char3.Class = new Class("class1");
-        Char3.Equipment = new Equipment("weapon1", new StatMod(2, 2));
-        Char3.identifier = 0;
-        listofChar.add(Char3);
-
-        // Create enemy team 
-        ArrayList<Character> enemyTeam = new ArrayList<>(); // move up
+        while (playerTeam.size() < 3) {
+           characterCreation();
+        }
 
         // need to randomise to some degree
         Character enemy1 = new Character("Goblin", 10, 10, 5, 6, 4);
@@ -101,7 +79,7 @@ public class GameLogic {
         enemyTeam.add(enemy3);
 
         ArrayList<Character> turnOrder = new ArrayList<>();
-        turnOrder.addAll(listofChar);
+        turnOrder.addAll(playerTeam);
         turnOrder.addAll(enemyTeam);
         Collections.sort(turnOrder, (a, b) -> Integer.compare(a.dexterity, b.dexterity));
 
@@ -122,7 +100,13 @@ public class GameLogic {
         int roundResult;
         System.out.println("Round 1!");
         while (true) {
-            roundResult = battleLoop(n1, listofChar, enemyTeam);
+            for (Character obj : turnOrder) {
+                if (obj.defenceBuff > 0) {
+                    obj.defence -= obj.defenceBuff;
+                    obj.defenceBuff = 0;
+                }
+            }
+            roundResult = battleLoop(n1, playerTeam, enemyTeam);
             if (roundResult < 0) {
                 break;
             }
@@ -143,62 +127,62 @@ public class GameLogic {
         }
     }
     public static void characterCreation() {
-        Character testChar = new Character(null, 0, 0, 0, 0, 0);
-        Class testClass = new Class(null);
-        Race testRace = new Race(null, null, null);
-        Equipment testEquip = new Equipment(null,null);
+        Character playerChar = new Character(null, 0, 0, 0, 0, 0);
+        Class playerClass = new Class(null);
+        Race playerRace = new Race(null, null, null);
+        Equipment playerEquip = new Equipment(null,null);
         String numPostfix;
-        if (listofChar.size() == 0) {
+        if (playerTeam.size() == 0) {
             numPostfix = "st";
         }
-        else if (listofChar.size() == 1) {
+        else if (playerTeam.size() == 1) {
             numPostfix = "nd";
         }
         else {
             numPostfix = "rd";
         }
-        headingCreator("Create your " + (listofChar.size() + 1) + numPostfix + " character");
+        headingCreator("Create your " + (playerTeam.size() + 1) + numPostfix + " character");
 
-        testChar.name = getCharName();
+        playerChar.name = getCharName();
 
         int rolledStats[] = rollStats();
-        testChar.health = rolledStats[0];
-        testChar.currenthp = testChar.health;
-        testChar.strength = rolledStats[1];
-        testChar.intelligence = rolledStats[2];
-        testChar.dexterity = rolledStats[3];
-        testChar.defence = rolledStats[4];
+        playerChar.health = rolledStats[0];
+        playerChar.currenthp = playerChar.health;
+        playerChar.strength = rolledStats[1];
+        playerChar.intelligence = rolledStats[2];
+        playerChar.dexterity = rolledStats[3];
+        playerChar.defence = rolledStats[4];
 
         ArrayList<Integer> raceStats = getRace();
-        testRace.name = getRaceName(raceStats);
-        testRace.stat1 = new StatMod(raceStats.get(1), raceStats.get(2));
-        testRace.stat2 = new StatMod(raceStats.get(3), raceStats.get(4));
-        raceStatMod(testChar, testRace.stat1, testRace.stat2);
-        testChar.Race = testRace;
+        playerRace.name = getRaceName(raceStats);
+        playerRace.stat1 = new StatMod(raceStats.get(1), raceStats.get(2));
+        playerRace.stat2 = new StatMod(raceStats.get(3), raceStats.get(4));
+        raceStatMod(playerChar, playerRace.stat1, playerRace.stat2);
+        playerChar.Race = playerRace;
 
         Returnpair classRpair  = getClassName();
-        testClass.name = classRpair.name;
-        testChar.Class = testClass;
+        playerClass.name = classRpair.name;
+        playerChar.Class = playerClass;
 
         Returnpair equipRpair = getEquip(classRpair.num);
-        testEquip.name = equipRpair.name;
-        testEquip.stat1 = equipRpair.stat1;
-        equipStatMod(testChar, testEquip.stat1);
-        testChar.Equipment = testEquip;
-        testChar.identifier = 0;
+        playerEquip.name = equipRpair.name;
+        playerEquip.stat1 = equipRpair.stat1;
+        equipStatMod(playerChar, playerEquip.stat1);
+        playerChar.Equipment = playerEquip;
+        playerChar.identifier = 0;
   
         headingCreator("Your character is ready!");
-        System.out.println("Character Name: " + testChar.name);
-        System.out.println("Health: " + testChar.health);
-        System.out.println("Strength: " + testChar.strength);
-        System.out.println("Intelligence: " + testChar.intelligence);
-        System.out.println("Dexterity: " + testChar.dexterity);
-        System.out.println("Defence: " + testChar.defence);
-        System.out.println("Race: " + testChar.Race);
-        System.out.println("Class: " + testChar.Class);
-        System.out.println("Equipment: " + testChar.Equipment);
+        System.out.println("Character Name: " + playerChar.name);
+        System.out.println("Health: " + playerChar.health);
+        System.out.println("Strength: " + playerChar.strength);
+        System.out.println("Intelligence: " + playerChar.intelligence);
+        System.out.println("Dexterity: " + playerChar.dexterity);
+        System.out.println("Defence: " + playerChar.defence);
+        System.out.println("Race: " + playerChar.Race);
+        System.out.println("Class: " + playerChar.Class);
+        System.out.println("Equipment: " + playerChar.Equipment);
 
-        listofChar.add(testChar);
+        playerTeam.add(playerChar);
 
     }
 
@@ -212,8 +196,8 @@ public class GameLogic {
         return n1;
     }
 
-    public static int battleLoop(Node start, ArrayList<Character> listofChar, ArrayList<Character> enemyTeam) {
-        int playerTeamHealth = listofChar.get(0).currenthp + listofChar.get(1).currenthp + listofChar.get(2).currenthp;
+    public static int battleLoop(Node start, ArrayList<Character> playerTeam, ArrayList<Character> enemyTeam) {
+        int playerTeamHealth = playerTeam.get(0).currenthp + playerTeam.get(1).currenthp + playerTeam.get(2).currenthp;
         int enemyTeamHealth = enemyTeam.get(0).currenthp + enemyTeam.get(1).currenthp + enemyTeam.get(2).currenthp;
 
         if (start == null) {
@@ -238,43 +222,50 @@ public class GameLogic {
                     int attacktarget = readInputInt("Who would you like to attack " + enemyTeam.get(0).name + " (1), " + enemyTeam.get(1).name + " (2) or " 
                                                     + enemyTeam.get(2).name + " (3): ", 3);
                     Character.attack(start.data, enemyTeam.get(attacktarget - 1));
-                    battleLoop(start.next, listofChar, enemyTeam);
+                    battleLoop(start.next, playerTeam, enemyTeam);
                     break;
                 case 2:
                     Character.defend(start.data);
-                    battleLoop(start.next, listofChar, enemyTeam);
+                    battleLoop(start.next, playerTeam, enemyTeam);
                     break;
                 case 3:
                     Character.heal(start.data);
-                    battleLoop(start.next, listofChar, enemyTeam);
+                    battleLoop(start.next, playerTeam, enemyTeam);
                     break;
             }
         }
         else if (start.data.identifier == 1) {
-            int battleChoice = (int)(Math.random() * 3 + 1);
+            int choiceMod;
+            if (start.data.currenthp == start.data.health) {
+                choiceMod = 2;
+            }
+            else {
+                choiceMod = 3;
+            }
+            int battleChoice = (int)(Math.random() * choiceMod + 1);
             System.out.println(start.data.name + "'s turn: " );
             System.out.println(start.data.name + " is on " + start.data.currenthp + " health: ");
             switch (battleChoice) {
                 case 1:
-                    Character.attack(start.data, listofChar.get((int)(Math.random() * 3)));
-                    battleLoop(start.next, listofChar, enemyTeam);
+                    Character.attack(start.data, playerTeam.get((int)(Math.random() * 3)));
+                    battleLoop(start.next, playerTeam, enemyTeam);
                     break;
                 case 2:
                     Character.defend(start.data);
-                    battleLoop(start.next, listofChar, enemyTeam);
+                    battleLoop(start.next, playerTeam, enemyTeam);
                     break;
                 case 3:
                     Character.heal(start.data);
-                    battleLoop(start.next, listofChar, enemyTeam);
+                    battleLoop(start.next, playerTeam, enemyTeam);
                     break;
             }
         }
         else {
-            battleLoop(start.next, listofChar, enemyTeam);
+            battleLoop(start.next, playerTeam, enemyTeam);
         }
         return 0;
     }
-
+    // move all of this to character file probably
     public static String getCharName() {
         String name;
         boolean nameConfirm = false;
@@ -549,22 +540,6 @@ public class GameLogic {
                 break; //Unreachable
         }
     }
-    public static void combatRound(Character attacker, Character defender) {
-        int attackPower = attacker.strength;
-        int defensePower = defender.defence;
-        int dice = (int)(Math.random() * 6);
-        int damage = Math.max(0, attackPower - defensePower + dice);
-
-        defender.currenthp -= damage;
-        System.out.println(attacker.name + " attacks " + defender.name + " for " + damage + " damage!");
-
-        if (defender.currenthp <= 0) {
-            System.out.println(defender.name + " has been defeated!");
-        } else {
-            System.out.println(defender.name + " has " + defender.currenthp + " HP remaining.");
-        }
-    }
-
 }
 
 
