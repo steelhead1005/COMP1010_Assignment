@@ -1,5 +1,6 @@
 package COMP1010.main;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -52,16 +53,32 @@ public class GameLogic {
         System.out.println(heading);
         textSeperator(30);
     }
-    //Establishes the game start and what is happening 
-    public static void gameStart() {
+    public static void gameStart() throws IOException{
         // add game name/dev names etc.
-        headingCreator("You are standing in an open field west of a white house.");//Establshing 
+        int exportCounter =0;
+        int importCounter =0;
+        headingCreator("You are standing in an open field west of a white house.");
         pauseGame("Press ENTER to start the game: ");
-        headingCreator("Create 3 characters to fight with to begin the game: ");//Prompt to create characters 
-        while (playerTeam.size() < 3) {//player makes three characters 
-           characterCreation();
-        }
-//Enemy Creation 
+        headingCreator("Create 3 characters to fight with to begin the game: ");
+        while (playerTeam.size() < 3) {
+            headingCreator("would you like to import character builds?, (1) Yes, (any key) No");
+            if (scanner.nextLine().equalsIgnoreCase("1")) {
+                    playerTeam.add(BuildIO.importCharacter("test"+importCounter));
+                    importCounter++;
+                    exportCounter++;
+                    //System.out.println(importCounter);
+            }
+            else {
+                characterCreation();
+                headingCreator("Do you wish to export your character, (1) Yes, (any key) No");
+                if (scanner.nextLine().equalsIgnoreCase("1")) {
+                    BuildIO.exportCharacter(playerTeam.get(exportCounter), "test"+exportCounter);
+                    exportCounter++;
+                    //System.out.println(exportCounter);
+                }
+            }
+        }    
+        //Enemy Creation 
         // need to randomise to some degree
         //Enemy 1
         Character enemy1 = new Character("Goblin", 10, 10, 5, 6, 4);
@@ -134,7 +151,7 @@ public class GameLogic {
             System.out.println("You Lose!");
         }
     }
-    public static void characterCreation() {
+    public static void characterCreation() throws IOException{
         Character playerChar = new Character(null, 0, 0, 0, 0, 0);
         Class playerClass = new Class(null);
         Race playerRace = new Race(null, null, null);
@@ -508,7 +525,7 @@ public class GameLogic {
                         equipPair.stat1 = new StatMod(1, 10);
                         return equipPair;
                     case 2:
-                        equipPair.name = "Glowing Gemstone";
+                        equipPair.name = "Brutal Broadaxe";
                         equipPair.stat1 = new StatMod(2, 5);
                         return equipPair;
                     case 3:
