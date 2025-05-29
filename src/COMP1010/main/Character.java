@@ -110,21 +110,21 @@ class Race {
         return name;
     }
 }
-//
+//This class is for thr different Roles the playable charater can be given 
 class Class {
-    String name;
-    Equipment weapon;
+    String name;//Classfication of the class
+    Equipment weapon;//Weapon associated with chosen class
     public Class (String name) {
-        this.name = name;
+        this.name = name;//initialisation 
     }
     public String toString() {
         return name;
     }
 }
-
+//The equipment class that asscoiates certain equipment wiht certain stats 
 class Equipment{
-    public String name;
-    public StatMod stat1;
+    public String name;//name of equipment 
+    public StatMod stat1;//stats modificcation for equipment 
     public Equipment (String name, StatMod stat1) {
         this.name = name;
         this.stat1 = stat1;
@@ -133,15 +133,16 @@ class Equipment{
         return name + stat1;
     }
 }
-
+//statmod class is for modifying the charcater attributes 
 class StatMod {
     int statToMod;
-    int valueOfMod;
+    int valueOfMod;//value of modification 
     String statName;
     public StatMod (int statToMod, int valueOfMod) {
         this.statToMod = statToMod;
         this.valueOfMod = valueOfMod;
     }
+    //returns the name of the stats based on the identity 
     public String getStatName() {
         switch (this.statToMod) {
             case 1:
@@ -162,13 +163,14 @@ class StatMod {
         return " (+" + valueOfMod + " " + getStatName() + ")";
     }
 }
+//return class used for storing data
 class Returnpair {
     public String name;
     public int num;
     public StatMod stat1;
 
     public Returnpair(String name, int num) {
-        this.name = name;
+        this.name = name;//
         this.num = num;
     }
     public Returnpair(String name, StatMod stat1) {
@@ -176,11 +178,12 @@ class Returnpair {
         this.stat1 = stat1;
     }
 }
+//node class is for linked list structure 
 class Node {
-    public Character data;
-    public Node next;
+    public Character data; // stored character data
+    public Node next;//Goes to the next node 
 
-    public Node(Character data, Node next) {
+    public Node(Character data, Node next) {//initialisation 
         this.data = data;
         this.next = next;
     }
