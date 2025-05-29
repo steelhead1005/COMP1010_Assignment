@@ -1,19 +1,19 @@
 package COMP1010.main;
-
+//The character class is made to represent the players stats
 class Character {
-    String name;
-    int health;
-    int currenthp;
-    int strength;
-    int intelligence;
-    int dexterity;
-    int defence;
+    String name;//Name of Character 
+    int health;//How much health the chracter will have
+    int currenthp;//Current Health points of the character
+    int strength;//Strength trait to change damage
+    int intelligence;//Intelligence trait for healing 
+    int dexterity;//Trait for speed(eg Dodging)
+    int defence;//Trait for damage mitgation
     int identifier;
-    int defenceBuff;
+    int defenceBuff;//Defence increase buff 
     Object Race;
     Object Class;
     Object Equipment;
-
+// Constructor to transfer the stats for the character
     public Character(String name, int health, int strength, int intelligence, int dexterity, int defence) {
         this.name = name;
         this.health = health;
@@ -23,89 +23,94 @@ class Character {
         this.dexterity = dexterity;
         this.defence = defence;
     }
+    
     public String toString() {
         return name + " " + dexterity;
     }
     public String toName() {
         return name + ", ";
     }
-
+//Changes the stats based on the Stat momd Object 
     public void statMod(StatMod mod) {
         switch (mod.statToMod) {
             case 1:
-                this.health += mod.valueOfMod;
+                this.health += mod.valueOfMod; //Health modifcation 
                 break;
             case 2:
-                this.strength += mod.valueOfMod;
+                this.strength += mod.valueOfMod; //Strength modifcation 
                 break;
             case 3:
-                this.intelligence += mod.valueOfMod;
+                this.intelligence += mod.valueOfMod; //Intelligence modification
                 break;
             case 4:
-                this.dexterity += mod.valueOfMod;
+                this.dexterity += mod.valueOfMod; //Dexterity modification
                 break;
             case 5:
-                this.defence += mod.valueOfMod;
+                this.defence += mod.valueOfMod; //Defense modification
                 break;
             default:
                 // Unknown stat, do nothing
                 break;
         }
     }
+    //Autheticates the damage of an attack from one charcater to the other
     public static void attack(Character attacker, Character defender) {
         int attackPower = attacker.strength;
         int defencePower = defender.defence;
-        int dice = (int)(Math.random() * 6);
-        int damage = Math.max(0, attackPower - defencePower + dice);
+        int dice = (int)(Math.random() * 6); //Dice roll
+        int damage = Math.max(0, attackPower - defencePower + dice);// The damage of the attack 
 
         if (defender.currenthp - damage <= 0) {
             defender.currenthp = 0;
-            System.out.println(attacker.name + " attacks " + defender.name + " for " + damage + " damage!");
-            GameLogic.pauseGame(defender.name + " is now DEAD!\nPress ENTER to continue: ");
+            System.out.println(attacker.name + " attacks " + defender.name + " for " + damage + " damage!");//display the damage in text
+            GameLogic.pauseGame(defender.name + " is now DEAD!\nPress ENTER to continue: ");//displaying the death of a character 
         }
         else {
             defender.currenthp -= damage;
             System.out.println(attacker.name + " attacks " + defender.name + " for " + damage + " damage!");
-            GameLogic.pauseGame(defender.name + " is now on " + defender.currenthp + " health: \nPress ENTER to continue: ");
+            GameLogic.pauseGame(defender.name + " is now on " + defender.currenthp + " health: \nPress ENTER to continue: ");//current status of game 
         }
     }
+    //code for chance to increase defence of character 
     public static void defend(Character defender) {
-        int dice = (int)(Math.random() * 6);
+        int dice = (int)(Math.random() * 6);//dice roll
         defender.defence += dice;
 
-        System.out.println(defender.name + " raised their defence by " + dice + " for 1 round!");
-        GameLogic.pauseGame("Press ENTER to continue: ");
-        defender.defenceBuff = dice;
+        System.out.println(defender.name + " raised their defence by " + dice + " for 1 round!");//text to inform player of defence increase
+        GameLogic.pauseGame("Press ENTER to continue: ");//The proccedure to move to next step 
+        defender.defenceBuff = dice;//buff 
     }
+    //Character healing 
     public static void heal(Character patient) {
-        int dice = (int)(Math.random() * 6) + patient.intelligence;
+        int dice = (int)(Math.random() * 6) + patient.intelligence;//Healing Amount calculation 
         if (patient.currenthp + dice > patient.health) {
-            dice = patient.health - patient.currenthp;
-            patient.currenthp = patient.health;
+            dice = patient.health - patient.currenthp;//Overhealing prevention 
+            patient.currenthp = patient.health;//add up the new healing to current hp 
         }
         else {
             patient.currenthp += dice;
         }
 
-        System.out.println(patient.name + " healed for " + dice + "!");
-        GameLogic.pauseGame("Press ENTER to continue: ");
+        System.out.println(patient.name + " healed for " + dice + "!");//informing player of healing being done 
+        GameLogic.pauseGame("Press ENTER to continue: ");//Next step button 
     }
 }
-
+//Class made to represent the different races choosable within the game 
 class Race {
-    String name;
-    StatMod stat1;
-    StatMod stat2;
+    String name;//Name of the Race
+    StatMod stat1;//Stat that comes with certain race
+    StatMod stat2;//Second stats that comes with certain race 
     
     public Race (String name, StatMod stat1, StatMod stat2) {
         this.name = name;
-        this.stat1 = stat1;
+        this.stat1 = stat1;//intialising the stats to the race class
         this.stat2 = stat2;
     }
     public String toString() {
         return name;
     }
 }
+//
 class Class {
     String name;
     Equipment weapon;
