@@ -1,4 +1,3 @@
-package COMP1010.main;
 //The character class is made to represent the players stats
 class Character {
     String name;//Name of Character 
