@@ -151,6 +151,7 @@ public class GameLogic {
             System.out.println("You Lose!");
         }
     }
+    //Create randomised character 
     public static void characterCreation() throws IOException{
         Character playerChar = new Character(null, 0, 0, 0, 0, 0);
         Class playerClass = new Class(null);
@@ -167,9 +168,9 @@ public class GameLogic {
             numPostfix = "rd";
         }
         headingCreator("Create your " + (playerTeam.size() + 1) + numPostfix + " character");
-
+//Get the chosen name for the character 
         playerChar.name = getCharName();
-
+        //roll for random stats 
         int rolledStats[] = rollStats();
         playerChar.health = rolledStats[0];
         playerChar.currenthp = playerChar.health;
@@ -178,24 +179,25 @@ public class GameLogic {
         playerChar.dexterity = rolledStats[3];
         playerChar.defence = rolledStats[4];
 
+        //Select race for the character and stats mods
         ArrayList<Integer> raceStats = getRace();
         playerRace.name = getRaceName(raceStats);
         playerRace.stat1 = new StatMod(raceStats.get(1), raceStats.get(2));
         playerRace.stat2 = new StatMod(raceStats.get(3), raceStats.get(4));
         raceStatMod(playerChar, playerRace.stat1, playerRace.stat2);
         playerChar.Race = playerRace;
-
+        //Class select
         Returnpair classRpair  = getClassName();
         playerClass.name = classRpair.name;
         playerChar.Class = playerClass;
-
+        //Equipment select based on class 
         Returnpair equipRpair = getEquip(classRpair.num);
         playerEquip.name = equipRpair.name;
         playerEquip.stat1 = equipRpair.stat1;
         equipStatMod(playerChar, playerEquip.stat1);
         playerChar.Equipment = playerEquip;
         playerChar.identifier = 0;
-  
+  //Display the character details
         headingCreator("Your character is ready!");
         System.out.println("Character Name: " + playerChar.name);
         System.out.println("Health: " + playerChar.health);
@@ -207,7 +209,7 @@ public class GameLogic {
         System.out.println("Class: " + playerChar.Class);
         System.out.println("Equipment: " + playerChar.Equipment);
 
-        playerTeam.add(playerChar);
+        playerTeam.add(playerChar);//add character to team 
 
     }
 
@@ -220,24 +222,25 @@ public class GameLogic {
         Node n1 = new Node(turnOrder.get(0), n2);
         return n1;
     }
-
+//loop that sorts the turn based system 
     public static int battleLoop(Node start, ArrayList<Character> playerTeam, ArrayList<Character> enemyTeam) {
         int playerTeamHealth = playerTeam.get(0).currenthp + playerTeam.get(1).currenthp + playerTeam.get(2).currenthp;
         int enemyTeamHealth = enemyTeam.get(0).currenthp + enemyTeam.get(1).currenthp + enemyTeam.get(2).currenthp;
 
         if (start == null) {
-            return 1;
+            return 1;//continue battle
         }
         if (enemyTeamHealth == 0){
-            return -1;
+            return -1;// player win
         }
         else if (playerTeamHealth == 0) {
-            return -2;
+            return -2;//Enemy win
         }
 
         if (start.data.currenthp <= 0) {
             start.data.identifier = 3;
         }
+        
         if (start.data.identifier == 0) {
             System.out.println(start.data.name + "'s turn: " );
             System.out.println(start.data.name + " is on " + start.data.currenthp + " health: ");
@@ -259,13 +262,14 @@ public class GameLogic {
                     break;
             }
         }
+        //enemy controlled turn
         else if (start.data.identifier == 1) {
             int choiceMod;
             if (start.data.currenthp == start.data.health) {
-                choiceMod = 2;
+                choiceMod = 2;//prioritise attack or defense 
             }
             else {
-                choiceMod = 3;
+                choiceMod = 3;// healing
             }
             int battleChoice = (int)(Math.random() * choiceMod + 1);
             System.out.println(start.data.name + "'s turn: " );
@@ -286,7 +290,7 @@ public class GameLogic {
             }
         }
         else {
-            battleLoop(start.next, playerTeam, enemyTeam);
+            battleLoop(start.next, playerTeam, enemyTeam);//next turn
         }
         return 0;
     }
@@ -306,31 +310,32 @@ public class GameLogic {
         }while (!nameConfirm);
         return name;
     }
-
+//random stats for new character
     public static int[] rollStats() {
-        int[] stats = new int[5];
-        pauseGame("Press ENTER to roll for health: ");
+        int[] stats = new int[5];// array to stoe character stats 
+        pauseGame("Press ENTER to roll for health: ");//ranom roll for health 
         int rolledHealth = (int)(Math.random() * 50 + 1);
         stats[0] = rolledHealth;
-        System.out.println("You rolled: " + rolledHealth);
+        System.out.println("You rolled: " + rolledHealth);//random roll for strength 
         pauseGame("Press ENTER to roll for strength: ");
         int rolledStrength = (int)(Math.random() * 10);
         stats[1] = rolledStrength;
-        System.out.println("You rolled: " + rolledStrength);
+        System.out.println("You rolled: " + rolledStrength);//random roll for intelligence(health)
         pauseGame("Press ENTER to roll for intelligence: ");
         int rolledInt = (int)(Math.random() * 10);
         stats[2] = rolledInt;
-        System.out.println("You rolled: " + rolledInt);
+        System.out.println("You rolled: " + rolledInt);//random roll for dex
         pauseGame("Press ENTER to roll for dexterity: ");
         int rolledDex = (int)(Math.random() * 10);
         stats[3] = rolledDex;
-        System.out.println("You rolled: " + rolledDex);
+        System.out.println("You rolled: " + rolledDex);//random roll for defence 
         pauseGame("Press ENTER to roll for defence: ");
         int rolledDefence = (int)(Math.random() * 10);
         stats[4] = rolledDefence;
         System.out.println("You rolled: " + rolledDefence);
         return stats;
     }
+    //Race selection for character 
     public static ArrayList<Integer> getRace(){
         int raceChoice = readInputInt("Choose a race: (1)'Human', (2)'Orc', (3)'Elf', (4)'Dwarf', (5)'Undead'", 5);
         ArrayList<Integer> raceArray = new ArrayList<Integer>(); // INDEXES: (0) = Race, (1) = First stat to mod, (2) = Amount to mod, (3) Second stat to mod, (4) Amount to mod
@@ -356,7 +361,7 @@ public class GameLogic {
                 return null; //Unreachable
         }
         
-    }
+    }//race name based on selected choices
     public static String getRaceName(ArrayList<Integer> list) {
         switch (list.get(0)) {
             case 1:
@@ -373,14 +378,16 @@ public class GameLogic {
                 return null; // Unreachable
         }
     }
+    //humans class to pick stats 
     public static int[] humanStatChoice() {
         int[] statChoice = new int[2];
         statChoice[0] = readInputInt("Pick the first stat to '+1': (1)'Health', (2)'Strength', (3)'Intelligence', (4)'Dexterity', (5)'Defence'", 5);
         statChoice[1] = readInputInt("Pick the second stat to '+1': (1)'Health', (2)'Strength', (3)'Intelligence', (4)'Dexterity', (5)'Defence'", 5);
         return statChoice;
     }
+    //race based stats modification 
     public static void raceStatMod(Character player, StatMod stat1, StatMod stat2) {
-        switch (stat1.statToMod) {
+        switch (stat1.statToMod) {//first stat mod
             case 1:
                 player.health += stat1.valueOfMod;
                 System.out.println("Your Health was changed by " + stat1.valueOfMod);
@@ -404,7 +411,7 @@ public class GameLogic {
             default:
                 break; //Unreachable
         }
-        switch (stat2.statToMod) {
+        switch (stat2.statToMod) {//second stat mod
             case 1:
                 player.health += stat2.valueOfMod;
                 System.out.println("Your Health was changed by " + stat2.valueOfMod);
@@ -428,10 +435,11 @@ public class GameLogic {
             default:
                 break; //Unreachable
         }
-    }
+    }//.retrieve class name based on user selection 
     public static Returnpair getClassName() {
+        //user selct a class
         int classChoice = readInputInt("Choose a class: (1)'Paladin', (2)'Rogue', (3)'Druid', (4)'Wizard', (5)'Barbarian'", 5);
-        switch (classChoice) {
+        switch (classChoice) {//return selected class and an identifier 
             case 1:
                 return new Returnpair("Paladin", 1);
             case 2:
@@ -446,10 +454,11 @@ public class GameLogic {
                 return null; //Unreachable
         }
     }
+    //retrieve equipment based on class 
     public static Returnpair getEquip(int classNum) {
         Returnpair equipPair = new Returnpair(null, null);
         switch (classNum) {
-            case 1:
+            case 1://paladin
                 int paladinEquip = readInputInt("Choose a Paladin Equipment: (1)'Holy Hammer', (2)'Divine Doublet', (3)'Flame of Faith'", 3);
                 switch (paladinEquip) {
                     case 1:
@@ -466,7 +475,7 @@ public class GameLogic {
                         return equipPair;
                     }
             break;
-            case 2:
+            case 2://rogue
                 int rogueEquip = readInputInt("Choose a Rogue Equipment: (1)'Stealthy Shoes', (2)'Dangerous Dagger', (3)'Cunning Caltrops'", 3);
                 switch (rogueEquip) {
                     case 1:
@@ -483,7 +492,7 @@ public class GameLogic {
                         return equipPair;
                     }
             break;
-            case 3:
+            case 3://Druid
                 int druidEquip = readInputInt("Choose a Druid Equipment: (1)'Faerie Flask', (2)'Brair Bindings', (3)'Willow Whistle'", 3);
                 switch (druidEquip) {
                     case 1:
@@ -500,7 +509,7 @@ public class GameLogic {
                         return equipPair;
                     }
             break;
-            case 4:
+            case 4://Wizard
                 int wizardEquip = readInputInt("Choose a Wizard Equipment: (1)'Crystal Cauldron', (2)'Glowing Gemstone', (3)'Arcane Amulet'", 3);
                 switch (wizardEquip) {
                     case 1:
@@ -517,7 +526,7 @@ public class GameLogic {
                         return equipPair;
                     }
             break;
-            case 5:
+            case 5://Barbarian
                 int barbarianEquip = readInputInt("Choose a Barbarian Equipment: (1)'Rage Remedy', (2)'Brutal Broadaxe', (3)'Savage Shield'", 3);
                 switch (barbarianEquip) {
                     case 1:
@@ -539,6 +548,7 @@ public class GameLogic {
         }
         return equipPair;
     }
+    //equipment based stat modificationto character
     public static void equipStatMod(Character player, StatMod stat1) {
         switch (stat1.statToMod) {
             case 1:
