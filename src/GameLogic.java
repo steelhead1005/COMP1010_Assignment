@@ -247,9 +247,35 @@ public class GameLogic {
             int battleChoice = readInputInt("Would you like to attack (1), defend (2) or heal (3): ", 3);
             switch (battleChoice) {
                 case 1:
-                    int attacktarget = readInputInt("Who would you like to attack " + enemyTeam.get(0).name + " (1), " + enemyTeam.get(1).name + " (2) or " 
-                                                    + enemyTeam.get(2).name + " (3): ", 3);
-                    Character.attack(start.data, enemyTeam.get(attacktarget - 1));
+                    ArrayList<Character> aliveEnemies = new ArrayList<>();
+                    for (Character enemy : enemyTeam) {
+                        if (enemy.currenthp > 0) {
+                            aliveEnemies.add(enemy);
+                        }
+                    }
+
+                    if (aliveEnemies.isEmpty()) {
+                        System.out.println("There are no enemies left to attack.");
+                        return 0; // Skip turn
+                    }
+
+                    System.out.println("Who would you like to attack:");
+                    for (int i = 0; i < aliveEnemies.size(); i++) {
+                        System.out.println((i + 1) + ") " + aliveEnemies.get(i).name + " (" + aliveEnemies.get(i).currenthp + " HP)");
+                    }
+
+                    int choice = readInputInt("Enter your choice: ", aliveEnemies.size());
+                    Character target = aliveEnemies.get(choice - 1);
+                
+                    Character.attack(start.data, target);
+
+                    battleLoop(start.next, playerTeam, enemyTeam);
+                    if (target.currenthp <= 0) {
+                        System.out.println(target.name + " is already defeated! Choose a different target.");
+                        return 0; // Skip turn or retry 
+                        } else {
+                            Character.attack(start.data, target);
+                        }
                     battleLoop(start.next, playerTeam, enemyTeam);
                     break;
                 case 2:
@@ -575,6 +601,7 @@ public class GameLogic {
                 break; //Unreachable
         }
     }
+
 }
 
 

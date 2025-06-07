@@ -52,6 +52,7 @@ class Character {
                 break;
         }
     }
+    
     //Autheticates the damage of an attack from one charcater to the other
     public static void attack(Character attacker, Character defender) {
         int attackPower = attacker.strength;
