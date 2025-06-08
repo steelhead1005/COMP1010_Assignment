@@ -92,9 +92,9 @@ UML Diagrams
 	      |-------------------------<| takeDamage (d)                      | currenthp+heal >= health
 	      | (d >= currenthp)   	 v (d < currenthp)                     |
 	      |			         | 				       |
-	      |				 |				       | 
+	      |				 |				       ^ 
  	      |		  |------------->Wounded (0 < currenthp < health) ---->| heal h 
- 	      |		  |              | takeDamage(d)               ^       |
+ 	      |		  |              | takeDamage(d)               ^       v
  	      |		  |-------------<|>--------------->|           |<------| 0< currenthp+heal < health
   	      |		   (d<currenthp)   (d>= currenthp) |
 	      |			                           |
