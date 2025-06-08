@@ -180,8 +180,8 @@ public class GameLogic {
         playerChar.defence = rolledStats[4];
 
         //Select race for the character and stats mods
-        ArrayList<Integer> raceStats = getRace();
-        playerRace.name = getRaceName(raceStats);
+        ArrayList<Integer> raceStats = getRaceStats();
+        playerRace.name = getRaceName(raceStats.get(0));
         playerRace.stat1 = new StatMod(raceStats.get(1), raceStats.get(2));
         playerRace.stat2 = new StatMod(raceStats.get(3), raceStats.get(4));
         raceStatMod(playerChar, playerRace.stat1, playerRace.stat2);
@@ -338,7 +338,7 @@ public class GameLogic {
     }
 //random stats for new character
     public static int[] rollStats() {
-        int[] stats = new int[5];// array to stoe character stats 
+        int[] stats = new int[5];// array to store character stats 
         pauseGame("Press ENTER to roll for health: ");//ranom roll for health 
         int rolledHealth = (int)(Math.random() * 50 + 1);
         stats[0] = rolledHealth;
@@ -362,7 +362,7 @@ public class GameLogic {
         return stats;
     }
     //Race selection for character 
-    public static ArrayList<Integer> getRace(){
+    public static ArrayList<Integer> getRaceStats(){
         int raceChoice = readInputInt("Choose a race: (1)'Human', (2)'Orc', (3)'Elf', (4)'Dwarf', (5)'Undead'", 5);
         ArrayList<Integer> raceArray = new ArrayList<Integer>(); // INDEXES: (0) = Race, (1) = First stat to mod, (2) = Amount to mod, (3) Second stat to mod, (4) Amount to mod
         raceArray.add(raceChoice);
@@ -388,8 +388,8 @@ public class GameLogic {
         }
         
     }//race name based on selected choices
-    public static String getRaceName(ArrayList<Integer> list) {
-        switch (list.get(0)) {
+    public static String getRaceName(int raceChoice) {
+        switch (raceChoice) {
             case 1:
                 return "Human";
             case 2:

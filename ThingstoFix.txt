@@ -1,2 +1,4 @@
 fix being able to attack a dead target
 tune stats
+randomise enemies
+move methods to char file
