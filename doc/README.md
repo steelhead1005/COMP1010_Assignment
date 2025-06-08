@@ -1,4 +1,5 @@
 What problem your application solves
+
 	This application aims to simulate a turn-based RPG combat. What the program will do is allow players to select a team of 3 characters each of which can have a 	different race, class, and weapon. These characters all have stats generated and having the race and class weapons allow modifications to these stats. The stats play 	a vital role in the characters as they determine a variety of factors which are described below:
 	Health - determines how many points of damage a player can take before dying. 
 	Strength - determines how much damage a character can do. 
@@ -48,6 +49,7 @@ What problem your application solves
 
 
 A description of the structure of your program
+
 	The program is structured into 4 different files:
 	buildIO.java - the file that handles the importing/exporting character data to/from files. 
 	character.java - the file that contains the data and logic for characters including races, classes and equipment
@@ -55,6 +57,7 @@ A description of the structure of your program
 	gameLogic.java - the file that handles the core game mechanics including inputs, character creation, turn order and the battle loop. 
 
 How to run the program
+
 	- Ensure you have Java installed on your computer.
 	- Unzip the file and note its location
 	- Open the folder COMP1010_Assignment in vscode
@@ -64,12 +67,14 @@ How to run the program
 	- if you wish to import builds, ensure the test0, test1, and test 2 are located at the same level as the src folder. 
 
 Task allocation 
+
 	Gabe 25% - 
 	Jai 25% - 
 	Jalib 25% - 
 	Harrison 25% - Ideas for classes, stats, weapon modifiers and class weapon modifiers. Documentation and File IO.
 
 UML Diagrams
+
 	Class diagram
 	![alt text](CharacterUML.png "Character UML Diagram") 
 	![alt text](RaceUML.png "Race UML Diagram")
@@ -102,6 +107,7 @@ UML Diagrams
 	      |--------------------------------> Dead (currenthp <=0)
 
 Analysis of two methods
+
 	Method 1: rollStat() in GameLogic.java
 		public static int[] rollStats() {
 			primitive integer array created with 5 array points.
