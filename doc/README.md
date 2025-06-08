@@ -113,8 +113,22 @@ Analysis of two methods
 	This method allows for easier resizing if more character stats are required but a lot more memory is used to create the Integer objects and calling for the ArrayList. 
 	Overall, the method in the game works much better as the character stats were predefined by us and we save more memory. 
 
-	Method 2: 
-	
-	
+	Method 2: importCharacter(String filename) in BuildIO.java
+ 	After reading the name, race, class, and equipment, The random stats are generated using Math.random()
+  	An Array list is made to store the raceStats.
+  	The race stats are then recieved through the GameLogic.getRaceStats(raceChoice).
+   	A switch-case statement is then used to allow the file i/o to import the race stat modifiers. 
+    	The class and equipment stats are also imported to the stat modifers using a switch-case statement
+     	The imported stat changes are then saved to the imported character along with the Race, class and class weapon. 
+	The character is then imported. 
 
-	
+ 	This method is more complicated than the original code and takes up more time due to the larger amount of switch statements. It also takes more memory due to more Object calls compared to the alternative approach. But what this allows us to do is successfully allow the races, and class weapon modifications to be inputted into the imported character. The previous method is shown below.
+
+  	Alternative approach: more primitive file IO
+   	Character importCharacter(String filename) 
+    	After reading the name, race, class and equipment, The random stats are generated using Math.random(). 
+     	A switch-case statement for the class weapon only as the class doesn't impact the stats, rather the weapon (saving a switch-case statement and a additional Class to be created)
+      	The imported stats changes are then saved to the imported characted along with race, class and class weapon. 
+       The character is then imported. 
+
+       This method is alot more primitive and simpler allowing for time to be saved due to the fewer switch-case statements\. Memory is also saved due to the more primitive structure and less object calls.
