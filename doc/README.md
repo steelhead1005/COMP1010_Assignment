@@ -78,22 +78,15 @@ Task allocation
 UML Diagrams
 
 	Class diagram
-	![alt text](CharacterUML.png "Character UML Diagram") 
-	![alt text](RaceUML.png "Race UML Diagram")
+![alt text](CharacterUML.png "Character UML Diagram") 
+![alt text](RaceUML.png "Race UML Diagram")
 
 	Sequence diagram for one turn (attacking)
-	Client		GameLogic		Character(attacking)		Character(defending)
-	  |
-	  |-- gameStart() ->|				 |				 |
-	  |		    |----- battleLoop(start) --> |     				 |
-	  |		    |----- att, def or heal  --->|      			 |
-	  |		    |				 |--------- attack character --->|
-	  |		    |				 |--------- calculate damage --->|
-	  |		    |				 |<-------- update HP -----------|
-	  |		    |<----- print result --------|				 |
-	  |<-- next turn ---|				 |				 |
-	
+ ![alt text](SequenceDiagram.png "Sequence Diagram")
+ 
 	State diagram
+ ![alt text](StateDiagram.png "State Diagram")
+ 
 					Full Health (currenthp == health ) <---|
 	  				 |                                     |
 	      |-------------------------<| takeDamage (d)                      | currenthp+heal >= health
