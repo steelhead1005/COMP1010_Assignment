@@ -297,8 +297,7 @@ public class GameLogic {
             System.out.println(start.data.name + " is on " + start.data.currenthp + " health: ");
             switch (battleChoice) {
                 case 1:
-                    Character target = playerTeam.get((int)(Math.random() * 3));
-                    Character.attack(start.data, playerTeam.get((int)(Math.random() * 3)));
+                    Character.attack(start.data, playerTeam.get((int)(Math.random() * playerTeam.size())));
                     battleLoop(start.next, playerTeam, enemyTeam);
                     break;
                 case 2:
