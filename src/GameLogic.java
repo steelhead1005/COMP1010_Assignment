@@ -81,21 +81,21 @@ public class GameLogic {
         //Enemy Creation 
         // need to randomise to some degree
         //Enemy 1
-        Character enemy1 = new Character("Goblin", 10, 10, 5, 6, 4);
+        Character enemy1 = new Character("Goblin", (int)(Math.random() * 50 + 1), (int)(Math.random() * 10), (int)(Math.random() * 10), (int)(Math.random() * 10), (int)(Math.random() * 10));
         enemy1.Race = new Race("race1", new StatMod(2, 2), new StatMod(4, 1));
         enemy1.Class = new Class("class1");
         enemy1.Equipment = new Equipment("weapon1", new StatMod(2, 2));
         enemy1.identifier = 1;
         enemyTeam.add(enemy1);
         //Enemy 2
-        Character enemy2 = new Character("Kobold", 10, 12, 3, 7, 6);
+        Character enemy2 = new Character("Kobold", (int)(Math.random() * 50 + 1), (int)(Math.random() * 10), (int)(Math.random() * 10), (int)(Math.random() * 10), (int)(Math.random() * 10));
         enemy2.Race = new Race("race2", new StatMod(1, 5), new StatMod(2, 2));
         enemy2.Class = new Class("class2");
         enemy2.Equipment = new Equipment("weapon2", new StatMod(2, 3));
         enemy2.identifier = 1;
         enemyTeam.add(enemy2);
         //Enemy
-        Character enemy3 = new Character("Witch", 10, 12, 3, 5, 6);
+        Character enemy3 = new Character("Witch", (int)(Math.random() * 50 + 1), (int)(Math.random() * 10), (int)(Math.random() * 10), (int)(Math.random() * 10), (int)(Math.random() * 10));
         enemy3.Race = new Race("race3", new StatMod(1, 5), new StatMod(2, 2));
         enemy3.Class = new Class("class3");
         enemy3.Equipment = new Equipment("weapon3", new StatMod(2, 3));
@@ -117,8 +117,7 @@ public class GameLogic {
             }
         pauseGame("Press ENTER to begin the fight: ");
         
-        Node n1 = battleOrderCreator(turnOrder);//Managing the turn based order
-       //rounds 
+        Node n1 = battleOrderCreator(turnOrder);//Managing the turn based order rounds 
         int roundCount = 1;
         int roundResult;
         System.out.println("Round 1!");
