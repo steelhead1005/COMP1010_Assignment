@@ -24,32 +24,43 @@ class Character {
     }
     
     public String toString() {
-        return name + " " + dexterity;
+        return name + " the " + Race + " " + Class;
     }
     public String toName() {
         return name + ", ";
     }
-//Changes the stats based on the Stat momd Object 
+    //Changes the stats based on the Stat momd Object 
     public void statMod(StatMod mod) {
+        String posOrNeg;
+        if(mod.valueOfMod < 0) {
+            posOrNeg = "decreased";
+        }
+        else{
+            posOrNeg = "increased";
+        }
         switch (mod.statToMod) {
             case 1:
                 this.health += mod.valueOfMod; //Health modifcation 
+                System.out.println("Your Health was " + posOrNeg + " by " + Math.abs(mod.valueOfMod));
                 break;
             case 2:
                 this.strength += mod.valueOfMod; //Strength modifcation 
+                System.out.println("Your Strength was " + posOrNeg + " by " + Math.abs(mod.valueOfMod));
                 break;
             case 3:
                 this.intelligence += mod.valueOfMod; //Intelligence modification
+                System.out.println("Your Intelligence was " + posOrNeg + " by " + Math.abs(mod.valueOfMod));
                 break;
             case 4:
                 this.dexterity += mod.valueOfMod; //Dexterity modification
+                System.out.println("Your Dexterity was " + posOrNeg + " by " + Math.abs(mod.valueOfMod));
                 break;
             case 5:
-                this.defence += mod.valueOfMod; //Defense modification
+                this.defence += mod.valueOfMod; //Defence modification
+                System.out.println("Your Defence was " + posOrNeg + " by " + Math.abs(mod.valueOfMod));
                 break;
             default:
-                // Unknown stat, do nothing
-                break;
+                break; //Unreachable
         }
     }
     
@@ -57,8 +68,7 @@ class Character {
     public static void attack(Character attacker, Character defender) {
         int attackPower = attacker.strength;
         int defencePower = defender.defence;
-        int dice = (int)(Math.random() * 6); //Dice roll
-        int damage = Math.max(0, attackPower - defencePower + dice);// The damage of the attack 
+        int damage = attackCalc(attackPower, defencePower);
 
         if (defender.currenthp - damage <= 0) {
             defender.currenthp = 0;
@@ -71,28 +81,40 @@ class Character {
             GameLogic.pauseGame(defender.name + " is now on " + defender.currenthp + " health: \nPress ENTER to continue: ");//current status of game 
         }
     }
+    public static int attackCalc(int attackPower, int defencePower){
+        int dice = dice(6); //Dice roll
+        int damage = Math.max(0, attackPower - defencePower + dice);// The damage of the attack 
+        return damage;
+    }
     //code for chance to increase defence of character 
     public static void defend(Character defender) {
-        int dice = (int)(Math.random() * 6);//dice roll
+        int dice = dice(6);
         defender.defence += dice;
 
         System.out.println(defender.name + " raised their defence by " + dice + " for 1 round!");//text to inform player of defence increase
         GameLogic.pauseGame("Press ENTER to continue: ");//The proccedure to move to next step 
         defender.defenceBuff = dice;//buff 
     }
+    public static int dice(int n) {
+        int dice = (int)(Math.random() * n);
+        return dice;
+    }
     //Character healing 
     public static void heal(Character patient) {
-        int dice = (int)(Math.random() * 6) + patient.intelligence;//Healing Amount calculation 
-        if (patient.currenthp + dice > patient.health) {
-            dice = patient.health - patient.currenthp;//Overhealing prevention 
+        int healAmount = dice(6) + patient.intelligence;//Healing Amount calculation 
+        overHealCheck(patient, healAmount);
+
+        System.out.println(patient.name + " healed for " + healAmount + "!");//informing player of healing being done 
+        GameLogic.pauseGame("Press ENTER to continue: ");//Next step button 
+    }
+    public static void overHealCheck(Character patient, int healAmount) {
+        if (patient.currenthp + healAmount > patient.health) {
+            healAmount = patient.health - patient.currenthp;//Overhealing prevention 
             patient.currenthp = patient.health;//add up the new healing to current hp 
         }
         else {
-            patient.currenthp += dice;
+            patient.currenthp += healAmount;
         }
-
-        System.out.println(patient.name + " healed for " + dice + "!");//informing player of healing being done 
-        GameLogic.pauseGame("Press ENTER to continue: ");//Next step button 
     }
 }
 //Class made to represent the different races choosable within the game 

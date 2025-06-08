@@ -184,7 +184,8 @@ public class GameLogic {
         playerRace.name = getRaceName(raceStats.get(0));
         playerRace.stat1 = new StatMod(raceStats.get(1), raceStats.get(2));
         playerRace.stat2 = new StatMod(raceStats.get(3), raceStats.get(4));
-        raceStatMod(playerChar, playerRace.stat1, playerRace.stat2);
+        playerChar.statMod(playerRace.stat1);
+        playerChar.statMod(playerRace.stat2);
         playerChar.Race = playerRace;
         //Class select
         Returnpair classRpair  = getClassName();
@@ -194,10 +195,10 @@ public class GameLogic {
         Returnpair equipRpair = getEquip(classRpair.num);
         playerEquip.name = equipRpair.name;
         playerEquip.stat1 = equipRpair.stat1;
-        equipStatMod(playerChar, playerEquip.stat1);
+        playerChar.statMod(playerEquip.stat1);
         playerChar.Equipment = playerEquip;
         playerChar.identifier = 0;
-  //Display the character details
+        //Display the character details
         headingCreator("Your character is ready!");
         System.out.println("Character Name: " + playerChar.name);
         System.out.println("Health: " + playerChar.health);
@@ -411,57 +412,7 @@ public class GameLogic {
         statChoice[1] = readInputInt("Pick the second stat to '+1': (1)'Health', (2)'Strength', (3)'Intelligence', (4)'Dexterity', (5)'Defence'", 5);
         return statChoice;
     }
-    //race based stats modification 
-    public static void raceStatMod(Character player, StatMod stat1, StatMod stat2) {
-        switch (stat1.statToMod) {//first stat mod
-            case 1:
-                player.health += stat1.valueOfMod;
-                System.out.println("Your Health was changed by " + stat1.valueOfMod);
-                break;
-            case 2:
-                player.strength += stat1.valueOfMod;
-                System.out.println("Your Strength was changed by " + stat1.valueOfMod);
-                break;
-            case 3:
-                player.intelligence += stat1.valueOfMod;
-                System.out.println("Your Intelligence was changed by " + stat1.valueOfMod);
-                break;
-            case 4:
-                player.dexterity += stat1.valueOfMod;
-                System.out.println("Your Dexterity was changed by " + stat1.valueOfMod);
-                break;
-            case 5:
-                player.defence += stat1.valueOfMod;
-                System.out.println("Your Defence was changed by " + stat1.valueOfMod);
-                break;
-            default:
-                break; //Unreachable
-        }
-        switch (stat2.statToMod) {//second stat mod
-            case 1:
-                player.health += stat2.valueOfMod;
-                System.out.println("Your Health was changed by " + stat2.valueOfMod);
-                break;
-            case 2:
-                player.strength += stat2.valueOfMod;
-                System.out.println("Your Strength was changed by " + stat2.valueOfMod);
-                break;
-            case 3:
-                player.intelligence += stat2.valueOfMod;
-                System.out.println("Your Intelligence was changed by " + stat2.valueOfMod);
-                break;
-            case 4:
-                player.dexterity += stat2.valueOfMod;
-                System.out.println("Your Dexterity was changed by " + stat2.valueOfMod);
-                break;
-            case 5:
-                player.defence += stat2.valueOfMod;
-                System.out.println("Your Defence was changed by " + stat2.valueOfMod);
-                break;
-            default:
-                break; //Unreachable
-        }
-    }//.retrieve class name based on user selection 
+    //retrieve class name based on user selection 
     public static Returnpair getClassName() {
         //user selct a class
         int classChoice = readInputInt("Choose a class: (1)'Paladin', (2)'Rogue', (3)'Druid', (4)'Wizard', (5)'Barbarian'", 5);
@@ -574,34 +525,6 @@ public class GameLogic {
         }
         return equipPair;
     }
-    //equipment based stat modificationto character
-    public static void equipStatMod(Character player, StatMod stat1) {
-        switch (stat1.statToMod) {
-            case 1:
-                player.health += stat1.valueOfMod;
-                System.out.println("Your Health was changed increased " + stat1.valueOfMod);
-                break;
-            case 2:
-                player.strength += stat1.valueOfMod;
-                System.out.println("Your Strength was changed increased " + stat1.valueOfMod);
-                break;
-            case 3:
-                player.intelligence += stat1.valueOfMod;
-                System.out.println("Your Intelligence was changed increased " + stat1.valueOfMod);
-                break;
-            case 4:
-                player.dexterity += stat1.valueOfMod;
-                System.out.println("Your Dexterity was changed increased " + stat1.valueOfMod);
-                break;
-            case 5:
-                player.defence += stat1.valueOfMod;
-                System.out.println("Your Defence was changed increased " + stat1.valueOfMod);
-                break;
-            default:
-                break; //Unreachable
-        }
-    }
-
 }
 
 
