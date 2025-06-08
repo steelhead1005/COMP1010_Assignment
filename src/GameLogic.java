@@ -258,11 +258,6 @@ public class GameLogic {
                         }
                     }
 
-                    if (aliveEnemies.isEmpty()) {
-                        System.out.println("There are no enemies left to attack.");
-                        return 0; // Skip turn
-                    }
-
                     System.out.println("Who would you like to attack:");
                     for (int i = 0; i < aliveEnemies.size(); i++) {
                         System.out.println((i + 1) + ") " + aliveEnemies.get(i).name + " (" + aliveEnemies.get(i).currenthp + " HP)");
@@ -270,13 +265,7 @@ public class GameLogic {
 
                     int choice = readInputInt("Enter your choice: ", aliveEnemies.size());
                     Character target = aliveEnemies.get(choice - 1);
-                    if (target.currenthp <= 0) {
-                        System.out.println(target.name + " is already defeated! Choose a different target.");
-                        return 0; // Skip turn or retry 
-                    } else {
-                        Character.attack(start.data, target);
-                    }
-
+                    Character.attack(start.data, target);
                     battleLoop(start.next, playerTeam, enemyTeam);
                     break;
                 case 2:
