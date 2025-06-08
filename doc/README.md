@@ -78,11 +78,12 @@ Task allocation
 UML Diagrams
 
 	Class diagram
-	![alt text](CharacterUML.png "Character UML Diagram") 
-	![alt text](RaceUML.png "Race UML Diagram")
+![alt text](CharacterUML.png "Character UML Diagram") 
+![alt text](RaceUML.png "Race UML Diagram")
 
 	Sequence diagram for one turn (attacking)
- 	![alt text](SequenceDiagram.png "Sequence Diagram")
+ ![alt text](SequenceDiagram.png "Sequence Diagram")
+ 
 	Client		GameLogic		Character(attacking)		Character(defending)
 	  |
 	  |-- gameStart() ->|				 |				 |
