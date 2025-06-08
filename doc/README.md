@@ -82,6 +82,7 @@ UML Diagrams
 	![alt text](RaceUML.png "Race UML Diagram")
 
 	Sequence diagram for one turn (attacking)
+ 	![alt text](SequenceDiagram.png "Sequence Diagram")
 	Client		GameLogic		Character(attacking)		Character(defending)
 	  |
 	  |-- gameStart() ->|				 |				 |
