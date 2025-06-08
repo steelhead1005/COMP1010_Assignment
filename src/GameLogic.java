@@ -248,7 +248,13 @@ public class GameLogic {
         if (start.data.identifier == 0) {
             System.out.println(start.data.name + "'s turn: " );
             System.out.println(start.data.name + " is on " + start.data.currenthp + " health: ");
-            int battleChoice = readInputInt("Would you like to attack (1), defend (2) or heal (3): ", 3);
+            int battleChoice;
+            if (start.data.currenthp == start.data.health) {
+                battleChoice = readInputInt("Would you like to attack (1) or defend (2): ", 2);
+            }
+            else{
+                battleChoice = readInputInt("Would you like to attack (1), defend (2) or heal (3): ", 3);
+            }
             switch (battleChoice) {
                 case 1:
                     ArrayList<Character> aliveEnemies = new ArrayList<>();
