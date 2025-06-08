@@ -134,14 +134,10 @@ public class GameLogic {
             if (roundResult < 0) {
                 break;//End game if less then 0 so -negatives
             }
-            else if (roundResult == 0) {
+            else if (roundResult == 1) {
                 roundCount += roundResult;
                 pauseGame("Round " + roundCount + "!\nPress ENTER to continue: ");//Next step prompt 
                 continue;//Continue to next round 
-            }
-            else {
-                roundCount += roundResult;
-                pauseGame("Round " + roundCount + "!\nPress ENTER to continue: ");//Next step prompt 
             }
         }
         //Outcome of the battle based on win or loss
@@ -228,11 +224,11 @@ public class GameLogic {
 //loop that sorts the turn based system 
     public static int battleLoop(Node start, ArrayList<Character> playerTeam, ArrayList<Character> enemyTeam) {
         int playerTeamHealth = 0;
-        for(int i = 0; i < playerTeam.size() - 1; i++){
+        for(int i = 0; i < playerTeam.size(); i++){
             playerTeamHealth += playerTeam.get(i).currenthp;
         }
         int enemyTeamHealth = 0;
-        for(int i = 0; i < enemyTeam.size() - 1; i++){
+        for(int i = 0; i < enemyTeam.size(); i++){
             enemyTeamHealth += enemyTeam.get(i).currenthp;
         }
 
