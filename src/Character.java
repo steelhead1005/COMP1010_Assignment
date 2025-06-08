@@ -73,7 +73,13 @@ class Character {
         if (defender.currenthp - damage <= 0) {
             defender.currenthp = 0;
             System.out.println(attacker.name + " attacks " + defender.name + " for " + damage + " damage!");//display the damage in text
-            GameLogic.pauseGame(defender.name + " is now DEAD!\nPress ENTER to continue: ");//displaying the death of a character 
+            GameLogic.pauseGame(defender.name + " is now DEAD!\nPress ENTER to continue: ");//displaying the death of a character
+            if(GameLogic.playerTeam.contains(defender)) {
+                GameLogic.playerTeam.remove(defender);
+            }
+            else{
+                GameLogic.enemyTeam.remove(defender);
+            }
         }
         else {
             defender.currenthp -= damage;

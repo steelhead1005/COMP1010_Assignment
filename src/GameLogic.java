@@ -107,7 +107,6 @@ public class GameLogic {
         turnOrder.addAll(enemyTeam);
         Collections.sort(turnOrder, (a, b) -> Integer.compare(a.dexterity, b.dexterity));//Comaprison 
 
-        System.out.println(turnOrder); //need to removed at somepoint
         
 
         // start battle
@@ -298,6 +297,7 @@ public class GameLogic {
             System.out.println(start.data.name + " is on " + start.data.currenthp + " health: ");
             switch (battleChoice) {
                 case 1:
+                    Character target = playerTeam.get((int)(Math.random() * 3));
                     Character.attack(start.data, playerTeam.get((int)(Math.random() * 3)));
                     battleLoop(start.next, playerTeam, enemyTeam);
                     break;
