@@ -136,6 +136,8 @@ public class GameLogic {
                 break;//End game if less then 0 so -negatives
             }
             else if (roundResult == 0) {
+                roundCount += roundResult;
+                pauseGame("Round " + roundCount + "!\nPress ENTER to continue: ");//Next step prompt 
                 continue;//Continue to next round 
             }
             else {
@@ -268,16 +270,13 @@ public class GameLogic {
 
                     int choice = readInputInt("Enter your choice: ", aliveEnemies.size());
                     Character target = aliveEnemies.get(choice - 1);
-                
-                    Character.attack(start.data, target);
-
-                    battleLoop(start.next, playerTeam, enemyTeam);
                     if (target.currenthp <= 0) {
                         System.out.println(target.name + " is already defeated! Choose a different target.");
                         return 0; // Skip turn or retry 
-                        } else {
-                            Character.attack(start.data, target);
-                        }
+                    } else {
+                        Character.attack(start.data, target);
+                    }
+
                     battleLoop(start.next, playerTeam, enemyTeam);
                     break;
                 case 2:
@@ -320,7 +319,7 @@ public class GameLogic {
         else {
             battleLoop(start.next, playerTeam, enemyTeam);//next turn
         }
-        return 0;
+        return 1;
     }
     // move all of this to character file probably
     public static String getCharName() {
