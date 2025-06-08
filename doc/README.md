@@ -84,18 +84,8 @@ UML Diagrams
 	Sequence diagram for one turn (attacking)
  ![alt text](SequenceDiagram.png "Sequence Diagram")
  
-	Client		GameLogic		Character(attacking)		Character(defending)
-	  |
-	  |-- gameStart() ->|				 |				 |
-	  |		    |----- battleLoop(start) --> |     				 |
-	  |		    |----- att, def or heal  --->|      			 |
-	  |		    |				 |--------- attack character --->|
-	  |		    |				 |--------- calculate damage --->|
-	  |		    |				 |<-------- update HP -----------|
-	  |		    |<----- print result --------|				 |
-	  |<-- next turn ---|				 |				 |
-	
 	State diagram
+ ![alt text](StateDiagram.png "State Diagram")
 					Full Health (currenthp == health ) <---|
 	  				 |                                     |
 	      |-------------------------<| takeDamage (d)                      | currenthp+heal >= health
