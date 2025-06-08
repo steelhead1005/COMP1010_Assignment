@@ -89,8 +89,8 @@ UML Diagrams
 	State diagram
 					Full Health (currenthp == health ) <---|
 	  				 |                                     |
-	      |-------------------------<| takeDamage (d)                      | currenthp+heal == health
-	      | (d > currenthp)   	 v (d < currenthp)                     |
+	      |-------------------------<| takeDamage (d)                      | currenthp+heal >= health
+	      | (d >= currenthp)   	 v (d < currenthp)                     |
 	      |			         | 				       |
 	      |				 |				       | 
  	      |		  |------------->Wounded (0 < currenthp < health) ---->| heal h 
