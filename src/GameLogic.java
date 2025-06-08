@@ -227,8 +227,14 @@ public class GameLogic {
     }
 //loop that sorts the turn based system 
     public static int battleLoop(Node start, ArrayList<Character> playerTeam, ArrayList<Character> enemyTeam) {
-        int playerTeamHealth = playerTeam.get(0).currenthp + playerTeam.get(1).currenthp + playerTeam.get(2).currenthp;
-        int enemyTeamHealth = enemyTeam.get(0).currenthp + enemyTeam.get(1).currenthp + enemyTeam.get(2).currenthp;
+        int playerTeamHealth = 0;
+        for(int i = 0; i < playerTeam.size() - 1; i++){
+            playerTeamHealth += playerTeam.get(i).currenthp;
+        }
+        int enemyTeamHealth = 0;
+        for(int i = 0; i < enemyTeam.size() - 1; i++){
+            enemyTeamHealth += enemyTeam.get(i).currenthp;
+        }
 
         if (start == null) {
             return 1;//continue battle
