@@ -70,7 +70,7 @@ How to run the program
 
 Task allocation 
 
-	Gabe 25% - 
+	Gabe 25% - Game Logic, Character data and Game Loop
 	Jai 25% - 
 	Jalib 25% - 
 	Harrison 25% - Ideas for classes, stats, weapon modifiers and class weapon modifiers. Documentation and File IO.
