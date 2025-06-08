@@ -53,7 +53,7 @@ A description of the structure of your program
 	The program is structured into 6 different files:
 	BuildIO.java - the file that handles the importing/exporting character data to/from files. 
 	Character.java - the file that contains the data and logic for characters including races, classes and equipment
- 	Character.test - test file to confirm the Character.java file is working correctly.
+ 	CharacterTest.java - test file to confirm the Character.java file is working correctly.
 	Client.java - the file that allows the game to run.
 	GameLogic.java - the file that handles the core game mechanics including inputs, character creation, turn order and the battle loop. 
 	GameLogicTest.java - test file to confirm the GameLogic.java file is working correctly.
