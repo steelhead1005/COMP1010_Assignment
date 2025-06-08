@@ -86,6 +86,7 @@ UML Diagrams
  
 	State diagram
  ![alt text](StateDiagram.png "State Diagram")
+ 
 					Full Health (currenthp == health ) <---|
 	  				 |                                     |
 	      |-------------------------<| takeDamage (d)                      | currenthp+heal >= health
