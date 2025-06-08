@@ -6,4 +6,4 @@ dexterity=11
 defence=1
 class=Wizard
 race=Elf
-equipment=Arcane Amulet (+5 Health)
+equipment=Arcane Amulet

@@ -180,7 +180,8 @@ public class GameLogic {
         playerChar.defence = rolledStats[4];
 
         //Select race for the character and stats mods
-        ArrayList<Integer> raceStats = getRaceStats();
+        int raceChoice = readInputInt("Choose a race: (1)'Human', (2)'Orc', (3)'Elf', (4)'Dwarf', (5)'Undead'", 5);
+        ArrayList<Integer> raceStats = getRaceStats(raceChoice);
         playerRace.name = getRaceName(raceStats.get(0));
         playerRace.stat1 = new StatMod(raceStats.get(1), raceStats.get(2));
         playerRace.stat2 = new StatMod(raceStats.get(3), raceStats.get(4));
@@ -363,8 +364,7 @@ public class GameLogic {
         return stats;
     }
     //Race selection for character 
-    public static ArrayList<Integer> getRaceStats(){
-        int raceChoice = readInputInt("Choose a race: (1)'Human', (2)'Orc', (3)'Elf', (4)'Dwarf', (5)'Undead'", 5);
+    public static ArrayList<Integer> getRaceStats(int raceChoice){
         ArrayList<Integer> raceArray = new ArrayList<Integer>(); // INDEXES: (0) = Race, (1) = First stat to mod, (2) = Amount to mod, (3) Second stat to mod, (4) Amount to mod
         raceArray.add(raceChoice);
         switch (raceChoice) {

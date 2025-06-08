@@ -6,4 +6,4 @@ dexterity=3
 defence=8
 class=Druid
 race=Undead
-equipment=Willow Whistle (+2 Dexterity)
+equipment=Willow Whistle

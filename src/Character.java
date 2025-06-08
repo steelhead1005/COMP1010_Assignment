@@ -152,7 +152,7 @@ class Equipment{
         this.stat1 = stat1;
     }
     public String toString() {
-        return name + stat1;
+        return name;
     }
 }
 //statmod class is for modifying the charcater attributes 
