@@ -189,12 +189,6 @@ public class BuildIO {
         System.out.println("Class: " + importedCharacter.Class);
         System.out.println("Equipment: " + importedCharacter.Equipment);
         return importedCharacter;
-        //GameLogic.playerTeam.add(importedCharacter);
-
-
     }
-
-
-
 }   
 
