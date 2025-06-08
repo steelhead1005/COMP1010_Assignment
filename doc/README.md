@@ -86,20 +86,6 @@ UML Diagrams
  
 	State diagram
  ![alt text](StateDiagram.png "State Diagram")
- 
-					Full Health (currenthp == health ) <---|
-	  				 |                                     |
-	      |-------------------------<| takeDamage (d)                      | currenthp+heal >= health
-	      | (d >= currenthp)   	 v (d < currenthp)                     |
-	      |			         | 				       |
-	      |				 |				       ^ 
- 	      |		  |------------->Wounded (0 < currenthp < health) ---->| heal h 
- 	      |		  |              | takeDamage(d)               ^       v
- 	      |		  |-------------<|>--------------->|           |<------| 0< currenthp+heal < health
-  	      |		   (d<currenthp)   (d>= currenthp) |
-	      |			                           |
-	      |			                           v
-	      |--------------------------------> Dead (currenthp <=0)
 
 Analysis of two methods
 
